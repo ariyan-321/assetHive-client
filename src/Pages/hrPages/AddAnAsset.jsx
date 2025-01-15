@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Lottie from "lottie-react";
 import animationData from "../../assets/lottie/add-asset.json";
 import { imageUpload } from "../../API/utils";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import { authContext } from "../../Provider.jsx/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 export default function AddAnAsset() {
   const [productName, setProductName] = useState("");
@@ -12,22 +14,24 @@ export default function AddAnAsset() {
   const [productImage, setProductImage] = useState(null);
   const [formError, setFormError] = useState(""); // Add formError state to handle errors
   const [loading, setLoading] = useState(false); // Add loading state to control the UI during async actions
-  const axiosSecure=useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
+  const { user } = useContext(authContext);
+  const navigate=useNavigate();
 
   const handleAdd = async () => {
     if (!productName || !productType || !productQuantity || !productImage) {
       toast.error("Please fill out all fields and upload an image!");
       return;
     }
-  
+
     if (productQuantity <= 0) {
       toast.error("Quantity must be greater than zero");
       return;
     }
-  
+
     setFormError(""); // Reset form error
     setLoading(true); // Start loading spinner
-  
+
     let photoURL;
     try {
       photoURL = await imageUpload(productImage); // Await image upload
@@ -38,14 +42,15 @@ export default function AddAnAsset() {
       setLoading(false); // Stop spinner
       return;
     }
-  
+
     const asset = {
       name: productName,
+      HrEmail: user?.email,
       type: productType,
       quantity: parseInt(productQuantity),
       image: photoURL,
     };
-  
+
     try {
       const res = await axiosSecure.post("/assets", { asset });
       if (res.data.insertedId) {
@@ -55,6 +60,7 @@ export default function AddAnAsset() {
         setProductType("");
         setProductQuantity("");
         setProductImage(null);
+        navigate("/asset-list")
       } else {
         toast.error("Something went wrong");
       }
@@ -65,7 +71,6 @@ export default function AddAnAsset() {
       setLoading(false); // Ensure loading is stopped
     }
   };
-  
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 md:flex-row md:justify-around 2xl:justify-between">
@@ -157,7 +162,9 @@ export default function AddAnAsset() {
           </button>
 
           {/* Show form error if any */}
-          {formError && <p className="text-red-500 text-sm mt-2">{formError}</p>}
+          {formError && (
+            <p className="text-red-500 text-sm mt-2">{formError}</p>
+          )}
         </form>
       </div>
 
