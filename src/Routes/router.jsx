@@ -4,6 +4,7 @@ import Home from "../Components/Home";
 import JoinAsAnEmployee from "../Pages/JoinAsAnEmployee";
 import JoinAsAHrManager from "../Pages/JoinAsAHrManager";
 import Login from "../Pages/Login";
+import AddAnAsset from "../Pages/hrPages/AddAnAsset";
 
 export const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/add-an-asset",
+        element: <AddAnAsset></AddAnAsset>,
       },
     ],
   },

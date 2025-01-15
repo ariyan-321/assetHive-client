@@ -64,7 +64,7 @@ export default function Navbar() {
             <Link to={"/"}>Asset List</Link>
           </li>
           <li>
-            <Link to={"/"}>Add an Asset</Link>
+            <Link to={"/add-an-asset"}>Add an Asset</Link>
           </li>
           <li>
             <Link to={"/"}>All Requests</Link>

@@ -57,9 +57,8 @@ export default function JoinAsAHrManager() {
       companyName,
       photoURL,
       email,
-      password,
       dateOfBirth,
-      selectedPackage,
+      selectedPackage:parseInt(selectedPackage),
       role: "hr-manager",
     };
 
