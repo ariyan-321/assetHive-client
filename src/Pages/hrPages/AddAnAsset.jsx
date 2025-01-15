@@ -1,34 +1,71 @@
 import React, { useState } from "react";
 import Lottie from "lottie-react";
 import animationData from "../../assets/lottie/add-asset.json";
+import { imageUpload } from "../../API/utils";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 export default function AddAnAsset() {
   const [productName, setProductName] = useState("");
   const [productType, setProductType] = useState("");
   const [productQuantity, setProductQuantity] = useState("");
   const [productImage, setProductImage] = useState(null);
+  const [formError, setFormError] = useState(""); // Add formError state to handle errors
+  const [loading, setLoading] = useState(false); // Add loading state to control the UI during async actions
+  const axiosSecure=useAxiosSecure();
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (!productName || !productType || !productQuantity || !productImage) {
-      alert("Please fill out all fields and upload an image!");
+      toast.error("Please fill out all fields and upload an image!");
       return;
     }
-
+  
+    if (productQuantity <= 0) {
+      toast.error("Quantity must be greater than zero");
+      return;
+    }
+  
+    setFormError(""); // Reset form error
+    setLoading(true); // Start loading spinner
+  
+    let photoURL;
+    try {
+      photoURL = await imageUpload(productImage); // Await image upload
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      toast.error("Image upload failed.");
+      setFormError("There was an issue uploading the image.");
+      setLoading(false); // Stop spinner
+      return;
+    }
+  
     const asset = {
       name: productName,
       type: productType,
-      quantity: productQuantity,
-      image: productImage,
+      quantity: parseInt(productQuantity),
+      image: photoURL,
     };
-
-    console.log("Asset added:", asset);
-    alert("Asset added successfully!");
-
-    setProductName("");
-    setProductType("");
-    setProductQuantity("");
-    setProductImage(null);
+  
+    try {
+      const res = await axiosSecure.post("/assets", { asset });
+      if (res.data.insertedId) {
+        toast.success("Added Asset Successfully");
+        // Reset form fields
+        setProductName("");
+        setProductType("");
+        setProductQuantity("");
+        setProductImage(null);
+      } else {
+        toast.error("Something went wrong");
+      }
+    } catch (error) {
+      console.error("Error adding asset:", error);
+      toast.error("Failed to add the asset. Please try again.");
+    } finally {
+      setLoading(false); // Ensure loading is stopped
+    }
   };
+  
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 md:flex-row md:justify-around 2xl:justify-between">
@@ -114,9 +151,13 @@ export default function AddAnAsset() {
             type="button"
             onClick={handleAdd}
             className="w-full py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition duration-300"
+            disabled={loading} // Disable button while loading
           >
-            Add Asset
+            {loading ? "Adding..." : "Add Asset"} {/* Show loading text */}
           </button>
+
+          {/* Show form error if any */}
+          {formError && <p className="text-red-500 text-sm mt-2">{formError}</p>}
         </form>
       </div>
 
