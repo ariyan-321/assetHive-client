@@ -12,6 +12,7 @@ export default function JoinAsAHrManager() {
   const [loading, setLoading] = useState(false); // Manage loading state
   const [formError, setFormError] = useState(""); // New state to store error messages
   const axiosPublic = useAxiosPublic();
+  const navigate=useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -68,6 +69,7 @@ export default function JoinAsAHrManager() {
       toast.success("Successfully Registered");
       const response = await axiosPublic.post("/users", { hrInfo });
       console.log(response.data);
+      navigate("/")
 
     } catch (err) {
       toast.error(err.message); // Error handling

@@ -1,13 +1,11 @@
 import React, { useContext } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
-import useAuth from '../hooks/useAuth'
-import useRole from '../hooks/useRole'
 import { useQuery } from '@tanstack/react-query'
 import useAxiosPublic from '../Hooks/useAxiosPublic'
 import { authContext } from '../Provider.jsx/AuthProvider'
 import LoadingSpinner from '../Components/SubComponents/LoagingSpinner'
 
- const AdminRoute = ({children}) => {
+ const HrRoute = ({children}) => {
 
     const location = useLocation()
   
@@ -35,4 +33,4 @@ import LoadingSpinner from '../Components/SubComponents/LoagingSpinner'
   
 }
 
-export default AdminRoute
+export default HrRoute

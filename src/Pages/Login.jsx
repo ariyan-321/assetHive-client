@@ -5,13 +5,19 @@ import { FaGoogle } from "react-icons/fa";
 import { authContext } from "../Provider.jsx/AuthProvider";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import LoadingSpinner from "../Components/SubComponents/LoagingSpinner";
 
 export default function Login() {
   const { user, userLogin, loading, googleLogin } = useContext(authContext);
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
+  const location=useLocation();
+
+
+  const redirectTo = location?.state?location?.state:"/";
+
+  console.log(redirectTo)
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -21,7 +27,7 @@ export default function Login() {
     userLogin(email, password)
       .then((res) => {
         toast.success("Login Success");
-        navigate("/");
+        navigate(location?.state ? location.state : "/");
       })
       .catch((err) => {
         console.log(err)
@@ -44,8 +50,7 @@ export default function Login() {
 
         const response = await axiosPublic.post("/users", { hrInfo });
         console.log(response.data);
-        navigate("/"); // Navigate after successful Google login
-        toast.success("Signup Successful");
+        navigate(location?.state ? location.state : "/");        toast.success("Signup Successful");
       }
     } catch (err) {
       console.log(err);

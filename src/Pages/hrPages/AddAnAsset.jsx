@@ -49,6 +49,7 @@ export default function AddAnAsset() {
       type: productType,
       quantity: parseInt(productQuantity),
       image: photoURL,
+      requests:0,
     };
 
     try {

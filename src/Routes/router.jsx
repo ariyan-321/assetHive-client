@@ -10,6 +10,8 @@ import AddAnEmployee from "../Pages/hrPages/AddAnEmployee";
 import RequestForAnAsset from "../Pages/employeePages/RequestForAnAsset";
 import MyEmployeeList from "../Pages/hrPages/MyEmployeeList";
 import Profile from "../Pages/Profile/Profile";
+import PrivateRoute from "./PrivateRoute";
+import HrRoute from "./HrRoute";
 
 export const router = createBrowserRouter([
   {
@@ -22,27 +24,60 @@ export const router = createBrowserRouter([
       },
       {
         path: "/add-an-asset",
-        element: <AddAnAsset></AddAnAsset>,
+        element: (
+          <PrivateRoute>
+            <HrRoute>
+              <AddAnAsset></AddAnAsset>
+            </HrRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/asset-list",
-        element: <AssetList></AssetList>,
+        element: (
+          <PrivateRoute>
+            <HrRoute>
+              {" "}
+              <AssetList></AssetList>
+            </HrRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/add-an-employee",
-        element: <AddAnEmployee></AddAnEmployee>,
+        element: (
+          <PrivateRoute>
+            <HrRoute>
+              <AddAnEmployee></AddAnEmployee>
+            </HrRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/request-for-an-asset",
-        element: <RequestForAnAsset></RequestForAnAsset>,
+        element: (
+          <PrivateRoute>
+            <RequestForAnAsset></RequestForAnAsset>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/my-employee-list",
-        element: <MyEmployeeList></MyEmployeeList>,
+        element: (
+          <PrivateRoute>
+            <HrRoute>
+              <MyEmployeeList></MyEmployeeList>
+            </HrRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/profile",
-        element: <Profile></Profile>,
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
       },
     ],
   },
