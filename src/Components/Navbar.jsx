@@ -54,7 +54,7 @@ export default function Navbar() {
             <Link to={"/request-for-an-asset"}>Request for an Asset</Link>
           </li>
           <li>
-            <Link to={"/"}>Profile</Link>
+            <Link to={"/profile"}>Profile</Link>
           </li>
         </>
       )}
@@ -80,7 +80,7 @@ export default function Navbar() {
             <Link to={"/add-an-employee"}>Add an Employee</Link>
           </li>
           <li>
-            <Link to={"/"}>Profile</Link>
+            <Link to={"/profile"}>Profile</Link>
           </li>
         </>
       )}
