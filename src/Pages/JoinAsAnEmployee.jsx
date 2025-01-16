@@ -49,7 +49,6 @@ export default function JoinAsAnEmployee() {
       const hrInfo = {
         name,
         email,
-        password,
         dateOfBirth,
         image: photoURL,
         role: "employee",
