@@ -19,6 +19,10 @@ export default function Navbar() {
     enabled: !!user?.email,
   });
 
+
+
+
+
   const navInfo = (
     <>
       {!user && (
@@ -73,7 +77,7 @@ export default function Navbar() {
             <Link to={"/"}>My Employee List</Link>
           </li>
           <li>
-            <Link to={"/"}>Add an Employee</Link>
+            <Link to={"/add-an-employee"}>Add an Employee</Link>
           </li>
           <li>
             <Link to={"/"}>Profile</Link>
