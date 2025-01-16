@@ -41,7 +41,7 @@ export default function Home() {
 
           <div className="my-20">
             <AboutUs></AboutUs>
-          </div>a
+          </div>
 
           <div className="my-20">
             <Packages></Packages>

@@ -41,7 +41,7 @@ export default function Profile() {
   return (
     <div>
       <h1 className="text-center my-5 text-4xl font-semibold">Your Profile</h1>
-      <div className="text-center grid justify-items-center gap-5 my-5">
+      <div className="text-center grid justify-items-center gap-2 my-5">
         <img
           className="w-[150px] h-[150px] rounded-full object-cover border-2 shadow-xl border-blue-400"
           src={user?.photoURL}
