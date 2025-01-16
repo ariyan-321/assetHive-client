@@ -7,6 +7,9 @@ import Login from "../Pages/Login";
 import AddAnAsset from "../Pages/hrPages/AddAnAsset";
 import AssetList from "../Pages/hrPages/AssetList";
 import AddAnEmployee from "../Pages/hrPages/AddAnEmployee";
+import RequestForAnAsset from "../Pages/employeePages/RequestForAnAsset";
+import MyEmployeeList from "../Pages/hrPages/MyEmployeeList";
+import Profile from "../Pages/Profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +31,18 @@ export const router = createBrowserRouter([
       {
         path: "/add-an-employee",
         element: <AddAnEmployee></AddAnEmployee>,
+      },
+      {
+        path: "/request-for-an-asset",
+        element: <RequestForAnAsset></RequestForAnAsset>,
+      },
+      {
+        path: "/my-employee-list",
+        element: <MyEmployeeList></MyEmployeeList>,
+      },
+      {
+        path: "/profile",
+        element: <Profile></Profile>,
       },
     ],
   },

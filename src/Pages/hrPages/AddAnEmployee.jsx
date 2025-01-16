@@ -182,9 +182,12 @@ export default function AddAnEmployee() {
                 </td>
                 <td className="p-4 text-center font-medium">{user.name}</td>
                 <td className="p-4 text-center">
-                  <button
+                <button
                     onClick={() => handleAddSingleMember(user)}
-                    className="btn btn-primary btn-sm"
+                    disabled={!selectedMembers.includes(user._id)} // Disable button if not selected
+                    className={`btn btn-primary btn-sm ${
+                      !selectedMembers.includes(user._id) ? 'btn-disabled opacity-50' : ''
+                    }`}
                   >
                     Add to Team
                   </button>
