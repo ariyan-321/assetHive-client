@@ -37,6 +37,7 @@ export default function RequestForAnAsset() {
       asset,
       status: "pending",
       requestDate: Date.now(), // Current date and time in milliseconds
+      approvalDate:null,
     };
   
     try {
