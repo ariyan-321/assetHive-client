@@ -12,14 +12,15 @@ export default function AddAnAsset() {
   const [productType, setProductType] = useState("");
   const [productQuantity, setProductQuantity] = useState("");
   const [productImage, setProductImage] = useState(null);
-  const [formError, setFormError] = useState(""); // Add formError state to handle errors
-  const [loading, setLoading] = useState(false); // Add loading state to control the UI during async actions
+  const [availability, setAvailability] = useState(""); // Added availability state
+  const [formError, setFormError] = useState(""); // Handle errors
+  const [loading, setLoading] = useState(false); // Handle loading state
   const axiosSecure = useAxiosSecure();
   const { user } = useContext(authContext);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const handleAdd = async () => {
-    if (!productName || !productType || !productQuantity || !productImage) {
+    if (!productName || !productType || !productQuantity || !productImage || !availability) {
       toast.error("Please fill out all fields and upload an image!");
       return;
     }
@@ -29,17 +30,17 @@ export default function AddAnAsset() {
       return;
     }
 
-    setFormError(""); // Reset form error
-    setLoading(true); // Start loading spinner
+    setFormError("");
+    setLoading(true);
 
     let photoURL;
     try {
-      photoURL = await imageUpload(productImage); // Await image upload
+      photoURL = await imageUpload(productImage);
     } catch (error) {
       console.error("Error uploading image:", error);
       toast.error("Image upload failed.");
       setFormError("There was an issue uploading the image.");
-      setLoading(false); // Stop spinner
+      setLoading(false);
       return;
     }
 
@@ -48,8 +49,9 @@ export default function AddAnAsset() {
       HrEmail: user?.email,
       type: productType,
       quantity: parseInt(productQuantity),
+      availability,
       image: photoURL,
-      requests:0,
+      requests: 0,
     };
 
     try {
@@ -60,8 +62,9 @@ export default function AddAnAsset() {
         setProductName("");
         setProductType("");
         setProductQuantity("");
+        setAvailability("");
         setProductImage(null);
-        navigate("/asset-list")
+        navigate("/asset-list");
       } else {
         toast.error("Something went wrong");
       }
@@ -69,7 +72,7 @@ export default function AddAnAsset() {
       console.error("Error adding asset:", error);
       toast.error("Failed to add the asset. Please try again.");
     } finally {
-      setLoading(false); // Ensure loading is stopped
+      setLoading(false);
     }
   };
 
@@ -99,7 +102,7 @@ export default function AddAnAsset() {
             />
           </div>
 
-          {/* Product Type */}
+          {/* Product Type Dropdown */}
           <div>
             <label
               htmlFor="productType"
@@ -107,14 +110,16 @@ export default function AddAnAsset() {
             >
               Product Type
             </label>
-            <input
+            <select
               id="productType"
-              type="text"
               value={productType}
               onChange={(e) => setProductType(e.target.value)}
               className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              placeholder="Enter product type"
-            />
+            >
+              <option value="">Select type</option>
+              <option value="Returnable">Returnable</option>
+              <option value="Non-Returnable">Non-Returnable</option>
+            </select>
           </div>
 
           {/* Product Quantity */}
@@ -133,6 +138,26 @@ export default function AddAnAsset() {
               className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               placeholder="Enter product quantity"
             />
+          </div>
+
+          {/* Availability Dropdown */}
+          <div>
+            <label
+              htmlFor="availability"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Availability
+            </label>
+            <select
+              id="availability"
+              value={availability}
+              onChange={(e) => setAvailability(e.target.value)}
+              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            >
+              <option value="">Select availability</option>
+              <option value="Available">Available</option>
+              <option value="Out of Stock">Out of Stock</option>
+            </select>
           </div>
 
           {/* Product Image */}
@@ -157,9 +182,9 @@ export default function AddAnAsset() {
             type="button"
             onClick={handleAdd}
             className="w-full py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition duration-300"
-            disabled={loading} // Disable button while loading
+            disabled={loading}
           >
-            {loading ? "Adding..." : "Add Asset"} {/* Show loading text */}
+            {loading ? "Adding..." : "Add Asset"}
           </button>
 
           {/* Show form error if any */}

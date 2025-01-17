@@ -12,6 +12,7 @@ import MyEmployeeList from "../Pages/hrPages/MyEmployeeList";
 import Profile from "../Pages/Profile/Profile";
 import PrivateRoute from "./PrivateRoute";
 import HrRoute from "./HrRoute";
+import MyAssets from "../Pages/employeePages/MyAssets";
 
 export const router = createBrowserRouter([
   {
@@ -37,7 +38,6 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <HrRoute>
-              {" "}
               <AssetList></AssetList>
             </HrRoute>
           </PrivateRoute>
@@ -58,6 +58,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <RequestForAnAsset></RequestForAnAsset>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-assets",
+        element: (
+          <PrivateRoute>
+            <MyAssets></MyAssets>
           </PrivateRoute>
         ),
       },
