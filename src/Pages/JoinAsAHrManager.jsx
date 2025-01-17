@@ -5,6 +5,7 @@ import { imageUpload } from "../API/utils";
 import { authContext } from "../Provider.jsx/AuthProvider";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
+import { useNavigate } from "react-router-dom";
 
 export default function JoinAsAHrManager() {
   const { createProfile, updateUserProfile } = useContext(authContext);
