@@ -13,6 +13,7 @@ import Profile from "../Pages/Profile/Profile";
 import PrivateRoute from "./PrivateRoute";
 import HrRoute from "./HrRoute";
 import MyAssets from "../Pages/employeePages/MyAssets";
+import MyTeam from "../Pages/employeePages/MyTeam";
 
 export const router = createBrowserRouter([
   {
@@ -66,6 +67,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyAssets></MyAssets>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-team",
+        element: (
+          <PrivateRoute>
+            <MyTeam></MyTeam>
           </PrivateRoute>
         ),
       },

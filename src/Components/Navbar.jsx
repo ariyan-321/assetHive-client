@@ -48,7 +48,7 @@ export default function Navbar() {
             <Link to={"/my-assets"}>My Assets</Link>
           </li>
           <li>
-            <Link to={"/"}>My Team</Link>
+            <Link to={"/my-team"}>My Team</Link>
           </li>
           <li>
             <Link to={"/request-for-an-asset"}>Request for an Asset</Link>
