@@ -39,19 +39,20 @@ export default function Profile() {
   };
 
   return (
-    <div>
-      <h1 className="text-center my-5 text-4xl font-semibold">Your Profile</h1>
-      <div className="text-center grid justify-items-center gap-2 my-5">
+    <div className="bg-gray-50 min-h-screen flex flex-col items-center py-10">
+      <h1 className="text-4xl font-semibold text-blue-600 mb-5">Your Profile</h1>
+
+      <div className="bg-white shadow-xl rounded-lg w-full sm:w-[400px] p-6 mb-6 text-center">
         <img
-          className="w-[150px] h-[150px] rounded-full object-cover border-2 shadow-xl border-blue-400"
+          className="w-[150px] h-[150px] rounded-full object-cover border-4 border-blue-500 mx-auto mb-4"
           src={user?.photoURL}
           alt="Profile"
         />
-        <h1 className="font-semibold text-xl">{user?.displayName}</h1>
-        <p className="text-xl">{user?.email}</p>
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">{user?.displayName}</h2>
+        <p className="text-gray-600 mb-4">{user?.email}</p>
         {/* Update Profile Button */}
         <button
-          className="btn btn-primary text-white"
+          className="btn btn-primary text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700 transition"
           onClick={() => setIsModalOpen(true)}
         >
           Edit Profile
@@ -61,14 +62,14 @@ export default function Profile() {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white rounded-lg shadow-lg w-96 p-6">
-            <h2 className="text-2xl font-semibold mb-4 text-center">
+          <div className="bg-white rounded-lg shadow-xl w-96 p-6 transition-all duration-300">
+            <h2 className="text-2xl font-semibold mb-4 text-center text-blue-600">
               Update Profile
             </h2>
 
             {/* Change Image */}
             <div className="mb-4">
-              <label className="block font-medium mb-2" htmlFor="profileImage">
+              <label className="block font-medium mb-2 text-gray-700" htmlFor="profileImage">
                 Change Profile Image
               </label>
               <input
@@ -81,7 +82,7 @@ export default function Profile() {
 
             {/* Change Name */}
             <div className="mb-4">
-              <label className="block font-medium mb-2" htmlFor="profileName">
+              <label className="block font-medium mb-2 text-gray-700" htmlFor="profileName">
                 Change Name
               </label>
               <input
@@ -97,17 +98,17 @@ export default function Profile() {
             {/* Buttons */}
             <div className="flex justify-end gap-4">
               <button
-                className="btn btn-secondary"
+                className="btn btn-secondary text-gray-600 hover:text-gray-800"
                 onClick={() => setIsModalOpen(false)}
               >
                 Cancel
               </button>
               <button
-                className="btn btn-primary text-white"
+                className="btn btn-primary text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
                 onClick={handleProfileUpdate}
                 disabled={isLoading} // Disable button while loading
               >
-                {isLoading ? "Changing Updates..." : "Change Update"} {/* Button Text Change */}
+                {isLoading ? "Updating..." : "Update Profile"}
               </button>
             </div>
           </div>

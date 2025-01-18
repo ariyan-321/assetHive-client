@@ -32,7 +32,7 @@ export default function MyMonthlyRequests() {
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg container mx-auto mt-6">
-      <h1 className="text-3xl font-semibold text-center text-blue-600 mb-6">My Monthly Requests</h1>
+      <h1 className="text-3xl font-semibold text-center  mb-6">My Monthly Requests</h1>
       
       {requests?.length > 0 ? (
         <div className="overflow-x-auto">
@@ -57,7 +57,7 @@ export default function MyMonthlyRequests() {
                     <img
                       src={request.asset.image}
                       alt={request.asset.name}
-                      className="w-12 h-12 object-cover rounded-full mx-auto"
+                      className="w-12 h-12 object-cover rounded-lg mx-auto"
                     />
                   </td>
                 </tr>

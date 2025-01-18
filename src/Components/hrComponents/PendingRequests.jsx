@@ -36,7 +36,7 @@ export default function PendingRequests() {
 
   return (
     <div className="container mx-auto px-4 py-6">
-      <h1 className="text-3xl font-bold text-blue-600 text-center mb-6">Pending Requests</h1>
+      <h1 className="text-3xl font-bold  text-center mb-6">Pending Requests</h1>
       
       {requests && requests.length > 0 ? (
         <div className="bg-white rounded-lg shadow-md p-4">
@@ -57,7 +57,6 @@ export default function PendingRequests() {
                     <div className="text-sm text-gray-500">
                       <p><strong>Type:</strong> {request.asset.type}</p>
                       <p><strong>Quantity:</strong> {request.asset.quantity}</p>
-                      <p><strong>Availability:</strong> {request.asset.availability}</p>
                     </div>
                   </div>
                   <span className="text-gray-500 text-sm">{request.status}</span>

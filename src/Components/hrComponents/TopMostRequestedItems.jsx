@@ -24,7 +24,7 @@ export default function TopMostRequestedItems() {
 
   return (
     <div className="p-6 max-w-screen-xl mx-auto">
-      <h1 className="text-3xl font-bold text-blue-600 mb-6 text-center">Top Most Requested Items</h1>
+      <h1 className="text-3xl font-bold  mb-6 text-center">Top Most Requested Items</h1>
       
       {assets.length === 0 ? (
         <p className="text-center text-xl text-gray-500">No items found with requests greater than 2.</p>
@@ -42,7 +42,6 @@ export default function TopMostRequestedItems() {
               />
               <h2 className="text-xl font-semibold text-gray-800 mb-2">{item.name}</h2>
               <p className="text-gray-600 mb-1">Requests: <span className="font-bold text-gray-800">{item.requests}</span></p>
-              <p className="text-gray-600">Availability: <span className="font-bold text-gray-800">{item.availability}</span></p>
             </div>
           ))}
         </div>

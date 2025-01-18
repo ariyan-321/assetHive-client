@@ -12,7 +12,6 @@ export default function AddAnAsset() {
   const [productType, setProductType] = useState("");
   const [productQuantity, setProductQuantity] = useState("");
   const [productImage, setProductImage] = useState(null);
-  const [availability, setAvailability] = useState(""); // Added availability state
   const [formError, setFormError] = useState(""); // Handle errors
   const [loading, setLoading] = useState(false); // Handle loading state
   const axiosSecure = useAxiosSecure();
@@ -20,7 +19,7 @@ export default function AddAnAsset() {
   const navigate = useNavigate();
 
   const handleAdd = async () => {
-    if (!productName || !productType || !productQuantity || !productImage || !availability) {
+    if (!productName || !productType || !productQuantity || !productImage ) {
       toast.error("Please fill out all fields and upload an image!");
       return;
     }
@@ -49,9 +48,10 @@ export default function AddAnAsset() {
       HrEmail: user?.email,
       type: productType,
       quantity: parseInt(productQuantity),
-      availability,
       image: photoURL,
+      availability:"available",
       requests: 0,
+      postDate:Date.now(),
     };
 
     try {
@@ -62,7 +62,6 @@ export default function AddAnAsset() {
         setProductName("");
         setProductType("");
         setProductQuantity("");
-        setAvailability("");
         setProductImage(null);
         navigate("/asset-list");
       } else {
@@ -148,16 +147,7 @@ export default function AddAnAsset() {
             >
               Availability
             </label>
-            <select
-              id="availability"
-              value={availability}
-              onChange={(e) => setAvailability(e.target.value)}
-              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            >
-              <option value="">Select availability</option>
-              <option value="Available">Available</option>
-              <option value="Out of Stock">Out of Stock</option>
-            </select>
+           
           </div>
 
           {/* Product Image */}

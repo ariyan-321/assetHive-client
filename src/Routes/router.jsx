@@ -15,6 +15,9 @@ import HrRoute from "./HrRoute";
 import MyAssets from "../Pages/employeePages/MyAssets";
 import MyTeam from "../Pages/employeePages/MyTeam";
 import AllRequests from "../Pages/hrPages/AllRequests";
+import UpdaeAsset from "../Pages/hrPages/UpdaeAsset";
+
+
 
 export const router = createBrowserRouter([
   {
@@ -61,6 +64,16 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <HrRoute>
               <AllRequests></AllRequests>
+            </HrRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/update/asset/:id",
+        element: (
+          <PrivateRoute>
+            <HrRoute>
+              <UpdaeAsset></UpdaeAsset>
             </HrRoute>
           </PrivateRoute>
         ),

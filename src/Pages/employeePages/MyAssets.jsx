@@ -96,7 +96,7 @@ export default function MyAssets() {
                     <button
                       onClick={() => handleReturn(request.asset._id)}
                       className={`px-4 py-2 rounded transition ${
-                        request.status === "approved" || request.asset.isNonReturnable
+                        request.status === "approved" || request.asset.type==="Non-Returnable"
                           ? "bg-gray-400 text-gray-200 cursor-not-allowed"
                           : "bg-green-500 text-white hover:bg-green-600"
                       }`}
