@@ -20,21 +20,56 @@ export default function MyPendingRequests() {
     enabled: !!user?.email, // Ensure the query only runs when email exists
   });
 
-  // Debugging console logs
-  console.log({ requests, isLoading, isError, error });
-
   return (
-    <div>
-      <h1 className="text-2xl font-bold">Pending Requests</h1>
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Error: {error.message}</p>}
-      {!isLoading && requests?.length === 0 && <p>No pending requests found.</p>}
+    <div className="p-6 bg-white rounded-lg shadow-md container mx-auto mt-6">
+      <h1 className="text-3xl font-semibold text-center text-blue-600 mb-6">
+        My Pending Requests
+      </h1>
+
+      {isLoading && <p className="text-center text-lg">Loading...</p>}
+
+      {isError && (
+        <p className="text-center text-lg text-red-500">
+          Error: {error.message}
+        </p>
+      )}
+
+      {!isLoading && requests?.length === 0 && (
+        <p className="text-center text-lg text-gray-500">No pending requests found.</p>
+      )}
+
       {!isLoading && requests?.length > 0 && (
-        <ul>
+        <ul className="space-y-4">
           {requests.map((request) => (
-            <li key={request._id}>
-              <p>Name: {request.asset.name}</p>
-              <p>Status: {request.status}</p>
+            <li
+              key={request._id}
+              className="p-4 border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 transition-all"
+            >
+              <div className="flex items-center space-x-4">
+                {/* Asset Image */}
+                <img
+                  src={request.asset.image}
+                  alt={request.asset.name}
+                  className="w-16 h-16 object-cover rounded-lg"
+                />
+                <div className="flex-1">
+                  <div className="flex justify-between items-center">
+                    <p className="text-xl font-medium">{request.asset.name}</p>
+                    <span
+                      className={`px-3 py-1 text-white text-sm rounded-full ${
+                        request.status === 'Pending'
+                          ? 'bg-yellow-500'
+                          : request.status === 'Approved'
+                          ? 'bg-green-500'
+                          : 'bg-red-500'
+                      }`}
+                    >
+                      {request.status}
+                    </span>
+                  </div>
+                  <p className="text-gray-600 mt-2">Status: {request.status}</p>
+                </div>
+              </div>
             </li>
           ))}
         </ul>

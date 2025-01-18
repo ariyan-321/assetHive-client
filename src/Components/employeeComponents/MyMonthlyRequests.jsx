@@ -7,7 +7,7 @@ export default function MyMonthlyRequests() {
   const { user } = useContext(authContext);
   const axiosSecure = useAxiosSecure();
 
-  // Fetch pending requests
+  // Fetch monthly requests
   const { data: requests, isLoading, isError, error } = useQuery({
     queryKey: ["monthlyRequests", user?.email], // Use user?.email for uniqueness
     queryFn: async () => {
@@ -22,42 +22,51 @@ export default function MyMonthlyRequests() {
 
   // Render loading state
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="text-center text-xl text-gray-500">Loading...</div>;
   }
 
   // Render error state
   if (isError) {
-    return <div>Error: {error.message || 'Something went wrong!'}</div>;
+    return <div className="text-center text-xl text-red-500">Error: {error.message || 'Something went wrong!'}</div>;
   }
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">My Monthly Requests</h1>
+    <div className="p-6 bg-white rounded-lg shadow-lg container mx-auto mt-6">
+      <h1 className="text-3xl font-semibold text-center text-blue-600 mb-6">My Monthly Requests</h1>
+      
       {requests?.length > 0 ? (
-        <table className="table-auto w-full border-collapse border border-gray-300">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border border-gray-300 px-4 py-2">#</th>
-              <th className="border border-gray-300 px-4 py-2">Asset Name</th>
-              <th className="border border-gray-300 px-4 py-2">Request Date</th>
-              <th className="border border-gray-300 px-4 py-2">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {requests.map((request, index) => (
-              <tr key={request._id} className="hover:bg-gray-50">
-                <td className="border border-gray-300 px-4 py-2 text-center">{index + 1}</td>
-                <td className="border border-gray-300 px-4 py-2">{request.asset.name}</td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {new Date(request.requestDate).toLocaleDateString()}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">{request.status}</td>
+        <div className="overflow-x-auto">
+          <table className="table w-full table-striped table-zebra">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="px-4 py-2 text-left">#</th>
+                <th className="px-4 py-2 text-left">Asset Name</th>
+                <th className="px-4 py-2 text-left">Request Date</th>
+                <th className="px-4 py-2 text-left">Status</th>
+                <th className="px-4 py-2 text-left">Asset Image</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {requests.map((request, index) => (
+                <tr key={request._id} className="hover:bg-gray-50 transition-all">
+                  <td className="px-4 py-2 text-center">{index + 1}</td>
+                  <td className="px-4 py-2">{request.asset.name}</td>
+                  <td className="px-4 py-2">{new Date(request.requestDate).toLocaleDateString()}</td>
+                  <td className="px-4 py-2">{request.status}</td>
+                  <td className="px-4 py-2">
+                    <img
+                      src={request.asset.image}
+                      alt={request.asset.name}
+                      className="w-12 h-12 object-cover rounded-full mx-auto"
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
-        <p>No requests found for this month.</p>
+        <p className="text-center text-lg text-gray-500">No requests found for this month.</p>
       )}
     </div>
   );

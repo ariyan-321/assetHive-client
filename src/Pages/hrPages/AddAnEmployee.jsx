@@ -44,7 +44,10 @@ export default function AddAnEmployee() {
 
   // Filter out the logged-in user and employees from the list of users
   const filteredUsers = users?.filter(
-    (u) => u.email !== user?.email && !employees?.some((e) => e.user._id === u._id)
+    (u) =>
+      u.email !== user?.email && // Exclude the logged-in user
+      u.role === "employee" && // Only include users with role 'employee'
+      !employees?.some((e) => e.user._id === u._id) // Exclude already added employees
   );
   
 

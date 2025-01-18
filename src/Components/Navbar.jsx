@@ -10,7 +10,7 @@ export default function Navbar() {
   const axiosPublic = useAxiosPublic();
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ["users",logOut,user],
+    queryKey: ["users", logOut, user],
     queryFn: async () => {
       const { data } = await axiosPublic.get(`/users/${user?.email}`);
       console.log(data);
@@ -18,10 +18,6 @@ export default function Navbar() {
     },
     enabled: !!user?.email,
   });
-
-
-
-
 
   const navInfo = (
     <>
@@ -38,7 +34,7 @@ export default function Navbar() {
           </li>
         </>
       )}
-  
+
       {data?.role === "employee" && (
         <>
           <li>
@@ -58,7 +54,7 @@ export default function Navbar() {
           </li>
         </>
       )}
-  
+
       {data?.role === "hr-manager" && (
         <>
           <li>
@@ -86,7 +82,6 @@ export default function Navbar() {
       )}
     </>
   );
-  
 
   return (
     <div className="bg-blue-400 sticky top-0  z-50">
@@ -114,7 +109,11 @@ export default function Navbar() {
             </ul>
           </div>
           <Link to={"/"} className="">
-            <img className="w-[70px]" src="/images/assetHive.png" alt="" />
+            <img
+              className="w-[60px] h-[60px] object-cover"
+              src={data?.companyImage || data?.photoURL || "/images/assetHive.png"}
+              alt="Company Logo"
+            />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">

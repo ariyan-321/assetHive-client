@@ -19,29 +19,30 @@ export default function LimitedStockItems() {
   });
 
   // Loading and error states
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Failed to load the data</div>;
+  if (isLoading) return <div className="flex justify-center items-center min-h-screen text-xl font-semibold">Loading...</div>;
+  if (isError) return <div className="flex justify-center items-center min-h-screen text-xl font-semibold text-red-500">Failed to load the data</div>;
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Limited Stock Items</h1>
+    <div className="p-6 max-w-screen-xl mx-auto">
+      <h1 className="text-3xl font-bold text-blue-600 mb-6 text-center">Limited Stock Items</h1>
+      
       {assets.length === 0 ? (
-        <p>No items with limited stock found.</p>
+        <p className="text-center text-xl text-gray-500">No items with limited stock found.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {assets.map((item) => (
             <div
               key={item._id}
-              className="border border-gray-200 rounded-lg p-4 shadow-md"
+              className="border border-gray-300 rounded-lg p-6 shadow-lg hover:shadow-xl transition duration-200 ease-in-out transform hover:scale-105"
             >
               <img
                 src={item.image}
                 alt={item.name}
-                className="w-full h-32 object-cover mb-4 rounded"
+                className="w-full h-48 object-cover mb-4 rounded-md shadow-md"
               />
-              <h2 className="text-lg font-semibold">{item.name}</h2>
-              <p className="text-gray-600">Quantity: {item.quantity}</p>
-              <p className="text-gray-600">Availability: {item.availability}</p>
+              <h2 className="text-xl font-semibold text-gray-800 mb-2">{item.name}</h2>
+              <p className="text-gray-600 mb-1">Quantity: <span className="font-bold text-gray-800">{item.quantity}</span></p>
+              <p className="text-gray-600">Availability: <span className="font-bold text-gray-800">{item.availability}</span></p>
             </div>
           ))}
         </div>

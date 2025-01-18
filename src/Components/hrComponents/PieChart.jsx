@@ -21,9 +21,6 @@ export default function PieChartComponent() {
       return data; // Return the data
     },
   });
-  console.log(items)
-
-  console.log(pieData);
 
   useEffect(() => {
     if (items) {
@@ -66,14 +63,14 @@ export default function PieChartComponent() {
     );
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {error?.message || "An error occurred"}</div>;
+  if (isLoading) return <div className="text-center text-xl font-semibold">Loading...</div>;
+  if (isError) return <div className="text-center text-xl text-red-500 font-semibold">Error: {error?.message || "An error occurred"}</div>;
   if (!items || items.length === 0)
-    return <div>No items found for this user.</div>;
+    return <div className="text-center text-xl text-gray-500">No items found for this user.</div>;
 
   return (
-    <div className="pie-chart-container">
-      <h2 className="text-center text-xl mb-4">Items Requested by Type</h2>
+    <div className="pie-chart-container p-6 bg-white rounded-lg shadow-md max-w-lg mx-auto">
+      <h2 className="text-center text-2xl font-semibold text-blue-600 mb-6">Items Requested by Type</h2>
       <ResponsiveContainer width="100%" height={300}>
         <PieChart>
           <Pie
@@ -88,10 +85,17 @@ export default function PieChartComponent() {
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}
+                className="cursor-pointer hover:scale-105 transition-all duration-300" // Add hover effect
               />
             ))}
           </Pie>
-          <Legend />
+          <Legend
+            iconSize={20}
+            layout="horizontal"
+            verticalAlign="bottom"
+            align="center"
+            wrapperStyle={{ paddingTop: "10px" }}
+          />
         </PieChart>
       </ResponsiveContainer>
     </div>

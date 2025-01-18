@@ -68,7 +68,7 @@ export default function JoinAsAHrManager() {
       await createProfile(email, password); // Creating profile
       await updateUserProfile({ displayName: name, photoURL }); // Updating profile
       toast.success("Successfully Registered");
-      const response = await axiosPublic.post("/users", { hrInfo });
+    const response = await axiosPublic.post("/users", {hrInfo} );
       console.log(response.data);
       navigate("/")
 
