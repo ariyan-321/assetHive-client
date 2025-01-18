@@ -105,12 +105,11 @@ export default function RequestForAnAsset() {
                   </td>
                   <td className="border border-gray-300 px-6 py-4">{asset.name}</td>
                   <td className="border border-gray-300 px-6 py-4 text-center">{asset.quantity}</td>
-                  <td className="border border-gray-300 px-6 py-4">{asset.quantity>0?"Available":"Out Of Stock"}</td>
+                  <td className="border border-gray-300 px-6 py-4">{asset.availability}</td>
                   <td className="border border-gray-300 px-6 py-4 text-center">{asset.requests}</td>
                   <td className="border border-gray-300 px-6 py-4 text-center">
                     <button
-                    disabled={asset.quantity<=0}
-                      onClick={() => handleRequest(asset)}
+disabled={!asset || asset.quantity <= 0 || asset.availability === "out-of-stock"}                      onClick={() => handleRequest(asset)}
                       className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105"
                     >
                       Request

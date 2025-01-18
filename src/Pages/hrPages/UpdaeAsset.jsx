@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useContext } from 'react';
-import { authContext } from '../../Provider.jsx/AuthProvider';
-import toast from 'react-hot-toast';
-import { useQuery } from '@tanstack/react-query';
-import useAxiosSecure from '../../Hooks/useAxiosSecure';
-import { imageUpload } from '../../API/utils';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useContext } from "react";
+import { authContext } from "../../Provider.jsx/AuthProvider";
+import toast from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import { imageUpload } from "../../API/utils";
 
 export default function UpdateAsset() {
   const { id } = useParams(); // Get the asset ID from the URL
   const axiosSecure = useAxiosSecure();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const { data: asset, isLoading } = useQuery({
-    queryKey: ['asset', id],
+    queryKey: ["asset", id],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/asset-details/${id}`);
       return data;
@@ -22,9 +22,9 @@ export default function UpdateAsset() {
 
   console.log(asset);
 
-  const [productName, setProductName] = useState('');
-  const [productType, setProductType] = useState('');
-  const [productQuantity, setProductQuantity] = useState('');
+  const [productName, setProductName] = useState("");
+  const [productType, setProductType] = useState("");
+  const [productQuantity, setProductQuantity] = useState("");
   const [productImage, setProductImage] = useState(asset?.image || null); // Set default value from asset data
   const [loading, setLoading] = useState(false);
   const { user } = useContext(authContext);
@@ -41,12 +41,12 @@ export default function UpdateAsset() {
 
   const handleUpdate = async () => {
     if (!productName || !productType || !productQuantity || !productImage) {
-      toast.error('Please fill out all fields and upload an image!');
+      toast.error("Please fill out all fields and upload an image!");
       return;
     }
 
     if (productQuantity <= 0) {
-      toast.error('Quantity must be greater than zero');
+      toast.error("Quantity must be greater than zero");
       return;
     }
 
@@ -55,6 +55,7 @@ export default function UpdateAsset() {
       type: productType,
       quantity: productQuantity,
       image: productImage, // The uploaded image URL or path
+      availability: "available",
     };
 
     setLoading(true);
@@ -62,11 +63,11 @@ export default function UpdateAsset() {
     try {
       // Assuming you're sending the data to the backend to update the asset
       const response = await axiosSecure.put(`/update-asset/${id}`, data);
-      toast.success('Asset updated successfully');
-      navigate('/asset-list')
+      toast.success("Asset updated successfully");
+      navigate("/asset-list");
     } catch (error) {
-      console.error('Error updating asset:', error);
-      toast.error('Failed to update the asset. Please try again.');
+      console.error("Error updating asset:", error);
+      toast.error("Failed to update the asset. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -89,7 +90,10 @@ export default function UpdateAsset() {
         <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
           {/* Product Name */}
           <div>
-            <label htmlFor="productName" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="productName"
+              className="block text-sm font-medium text-gray-700"
+            >
               Product Name
             </label>
             <input
@@ -104,7 +108,10 @@ export default function UpdateAsset() {
 
           {/* Product Type Dropdown */}
           <div>
-            <label htmlFor="productType" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="productType"
+              className="block text-sm font-medium text-gray-700"
+            >
               Product Type
             </label>
             <select
@@ -121,7 +128,10 @@ export default function UpdateAsset() {
 
           {/* Product Quantity */}
           <div>
-            <label htmlFor="productQuantity" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="productQuantity"
+              className="block text-sm font-medium text-gray-700"
+            >
               Product Quantity
             </label>
             <input
@@ -136,7 +146,10 @@ export default function UpdateAsset() {
 
           {/* Product Image */}
           <div>
-            <label htmlFor="productImage" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="productImage"
+              className="block text-sm font-medium text-gray-700"
+            >
               Product Image
             </label>
             <input
@@ -158,7 +171,7 @@ export default function UpdateAsset() {
             className="w-full py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition duration-300"
             disabled={loading}
           >
-            {loading ? 'Updating...' : 'Update Asset'}
+            {loading ? "Updating..." : "Update Asset"}
           </button>
         </form>
       </div>
