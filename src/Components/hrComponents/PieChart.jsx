@@ -57,6 +57,7 @@ export default function PieChartComponent() {
         fill="#000" // Set label color to black
         fontSize={14}
         fontWeight="600" // Make the label semi-bold
+        
       >
         {`${percentage}%`}
       </text>
@@ -71,7 +72,7 @@ export default function PieChartComponent() {
   return (
     <div className="pie-chart-container p-6 bg-white rounded-lg shadow-md max-w-lg mx-auto">
       <h2 className="text-center text-2xl font-semibold text-blue-600 mb-6">Items Requested by Type</h2>
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%"  height={500}>
         <PieChart>
           <Pie
             data={pieData}
