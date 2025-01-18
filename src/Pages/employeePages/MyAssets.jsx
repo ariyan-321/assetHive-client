@@ -44,10 +44,13 @@ export default function MyAssets() {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">My Assets</h1>
+    <div className="p-6 bg-white rounded-lg shadow-lg container mx-auto mt-6">
+      <h1 className="text-3xl font-semibold text-center text-blue-600 mb-6">
+        My Assets
+      </h1>
+
       <div className="overflow-x-auto">
-        <table className="table-auto w-full border-collapse border border-gray-300">
+        <table className="table-auto w-full border-collapse border border-gray-300 text-sm md:text-base">
           <thead>
             <tr className="bg-gray-100">
               <th className="border border-gray-300 px-4 py-2">#</th>
@@ -92,8 +95,12 @@ export default function MyAssets() {
                   <td className="border border-gray-300 px-4 py-2 text-center">
                     <button
                       onClick={() => handleReturn(request.asset._id)}
-                      className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
-                      disabled={request.status !== "pending"} // Disable button if status is not 'pending'
+                      className={`px-4 py-2 rounded transition ${
+                        request.status === "approved" || request.asset.isNonReturnable
+                          ? "bg-gray-400 text-gray-200 cursor-not-allowed"
+                          : "bg-green-500 text-white hover:bg-green-600"
+                      }`}
+                      disabled={request.status === "approved" || request.asset.type==="Non-Returnable"}
                     >
                       Return
                     </button>
@@ -102,7 +109,7 @@ export default function MyAssets() {
               ))
             ) : (
               <tr>
-                <td colSpan="8" className="text-center py-4">
+                <td colSpan="8" className="text-center py-4 text-gray-500">
                   No asset requests found.
                 </td>
               </tr>
