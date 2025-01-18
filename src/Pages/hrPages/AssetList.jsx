@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { authContext } from "../../Provider.jsx/AuthProvider";
 import Swal from "sweetalert2";
@@ -14,17 +14,28 @@ export default function AssetList() {
   const [filterType, setFilterType] = useState("all");
   const [sortOrder, setSortOrder] = useState("asc");
 
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
+
+  // Debounce the search term
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 500); // 500ms debounce delay
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
   const {
     data: assets = [],
     isLoading,
     isError,
     refetch
   } = useQuery({
-    queryKey: ["assets", searchTerm, filterStatus, filterType, sortOrder],
+    queryKey: ["assets", debouncedSearchTerm, filterStatus, filterType, sortOrder],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/asset-list/${user?.email}`, {
         params: {
-          searchTerm,
+          searchTerm: debouncedSearchTerm,
           filterStatus,
           filterType,
           sortOrder,
@@ -60,10 +71,6 @@ export default function AssetList() {
       }
     });
   };
-
-
-  
-
 
   if (isLoading) {
     return (
@@ -116,8 +123,8 @@ export default function AssetList() {
           value={filterType}
         >
           <option value="all">All Asset Types</option>
-          <option value="returnable">Returnable</option>
-          <option value="non-returnable">Non-Returnable</option>
+          <option value="Returnable">Returnable</option>
+          <option value="Non-Returnable">Non-Returnable</option>
         </select>
 
         <select
@@ -165,10 +172,7 @@ export default function AssetList() {
                   </td>
                   <td className="py-3 px-6 flex space-x-2">
                     {/* Action Buttons */}
-
-
                     <Link to={`/update/asset/${asset._id}`}
-                      
                       className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-all duration-300"
                     >
                       Update
@@ -180,7 +184,6 @@ export default function AssetList() {
                     >
                       Delete
                     </button>
-                    
                   </td>
                 </tr>
               ))

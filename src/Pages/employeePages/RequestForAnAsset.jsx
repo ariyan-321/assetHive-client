@@ -39,15 +39,23 @@ export default function RequestForAnAsset() {
       requestDate: Date.now(), // Current date and time in milliseconds
       approvalDate: null,
     };
-
+  
     try {
       // Step 1: Send request info to the backend
       const res = await axiosSecure.post(`/assets/request`, assetInfo);
-
+  
       if (res.data.success) {
-        // Step 2: Update the asset in the database
-        const updateRes = await axiosSecure.patch(`/assets-update/${asset._id}`);
-
+        // Step 2: Prepare updated fields for the asset
+        const updatedAsset = { ...asset, quantity: asset.quantity - 1 };
+        const updatedAvailability = updatedAsset.quantity > 0 ? "available" : "out-of-stock";
+  
+        // Step 3: Send PATCH request to update asset in backend
+        const updateRes = await axiosSecure.patch(`/assets-update/${asset._id}`, {
+          quantity: updatedAsset.quantity,
+          availability: updatedAvailability,
+          requests: asset.requests + 1, // Increment the requests field
+        });
+  
         if (updateRes.data.success) {
           toast.success("Request sent and asset updated successfully!");
           refetch(); // Refresh the assets list
@@ -62,6 +70,8 @@ export default function RequestForAnAsset() {
       toast.error("An error occurred. Please try again.");
     }
   };
+  
+  
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">

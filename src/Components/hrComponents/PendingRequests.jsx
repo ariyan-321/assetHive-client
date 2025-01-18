@@ -12,7 +12,7 @@ export default function PendingRequests() {
     queryKey: ['requests', user?.email], // Use user?.email for uniqueness
     queryFn: async () => {
       if (!user?.email) return []; // Prevent query from running if email is undefined
-      const { data } = await axiosSecure.get(`/requests/pending/${user?.email}`);
+      const { data } = await axiosSecure.get(`/requests-pending/${user?.email}`);
       return data; // Return the data
     },
     enabled: !!user?.email, // Ensure the query only runs when email exists
