@@ -90,9 +90,7 @@ export default function AllRequests() {
 
   return (
     <div className="p-6 bg-gradient-to-r from-blue-100 via-white to-blue-100 min-h-screen">
-      <h1 className="text-3xl font-bold text-center  mb-8">
-        All Requests
-      </h1>
+      <h1 className="text-3xl font-bold text-center  mb-8">All Requests</h1>
 
       {/* Search Bar */}
       <div className="flex justify-center mb-6">
@@ -139,15 +137,18 @@ export default function AllRequests() {
                   })}
                 </p>
                 <p className="text-sm text-gray-600 mb-2">
-  <span className="font-medium">Approval Date:</span>{" "}
-  {request.approvalDate
-    ? new Date(request.approvalDate).toLocaleDateString("en-GB", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-    : "N/A"}
-</p>
+                  <span className="font-medium">Approval Date:</span>{" "}
+                  {request.approvalDate
+                    ? new Date(request.approvalDate).toLocaleDateString(
+                        "en-GB",
+                        {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        }
+                      )
+                    : "N/A"}
+                </p>
                 <p className="text-sm text-gray-600 mb-2">
                   <span className="font-medium">Message:</span>{" "}
                   {request.message ? (
@@ -174,18 +175,25 @@ export default function AllRequests() {
                       request.status === "approved"
                     }
                     className={`text-sm px-4 py-2 rounded-lg transition-colors ${
-                      request.status === "returned" || request.status === "rejected"
+                      request.status === "returned" ||
+                      request.status === "rejected"
                         ? "bg-gray-500 text-white hover:bg-gray-600"
                         : "bg-green-500 text-white hover:bg-green-600"
                     }`}
                     onClick={() => handleApprove(request._id)}
                   >
-                   {request?.status === "approved" ? "Approved" : "Approve"}
+                    {request?.status === "approved" ? "Approved" : "Approve"}
                   </button>
                   <button
-                    disabled={ request.status === "approved" || request.status === "returned"  || request.status === "rejected"}
+                    disabled={
+                      request.status === "approved" ||
+                      request.status === "returned" ||
+                      request.status === "rejected"
+                    }
                     className={`text-sm px-4 py-2 rounded-lg transition-colors ${
-                      request.status === "returned" ||  request.status === "approved" || request.status === "rejected"
+                      request.status === "returned" ||
+                      request.status === "approved" ||
+                      request.status === "rejected"
                         ? "bg-gray-500 text-white hover:bg-gray-600"
                         : "bg-red-500 text-white hover:bg-red-600"
                     }`}
