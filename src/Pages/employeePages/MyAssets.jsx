@@ -3,13 +3,37 @@ import { authContext } from "../../Provider.jsx/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  PDFDownloadLink,
+  Image,
+} from "@react-pdf/renderer";
+import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 export default function MyAssets() {
   const { user } = useContext(authContext);
   const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
+
+  const { data: company } = useQuery({
+    queryKey: ["users", user],
+    queryFn: async () => {
+      const { data } = await axiosPublic.get(`/users/${user?.email}`);
+      console.log(data);
+      return data;
+    },
+    enabled: !!user?.email,
+  });
+
+  console.log("company", company);
 
   // Fetch requests data
-  const { data: requests } = useQuery({
+  const { data: requests, refetch } = useQuery({
     queryKey: ["requests"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(
@@ -21,18 +45,65 @@ export default function MyAssets() {
 
   // Handle the return action for an asset
   const handleReturn = async (assetId) => {
-    try {
-      // Make a PATCH request to return the asset (update the status)
-      const res = await axiosSecure.patch(`/assets-return/${assetId}`);
-      if (res.data.success) {
-        toast.success("Asset returned successfully!");
-        // Optionally refetch requests or handle state update
-      } else {
-        toast.error("Failed to return asset.");
+    // Show a confirmation alert using SweetAlert
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to return this asset?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, return it!",
+      cancelButtonText: "No, keep it",
+      reverseButtons: true,
+    });
+
+    // If confirmed, proceed to return the asset
+    if (result.isConfirmed) {
+      try {
+        const res = await axiosSecure.patch(`/requests/return/${assetId}`);
+        if (res.data.success) {
+          toast.success("Asset returned successfully!");
+          refetch();
+        } else {
+          toast.error("Failed to return asset.");
+        }
+      } catch (error) {
+        console.error("Error returning asset:", error);
+        toast.error("An error occurred. Please try again.");
       }
-    } catch (error) {
-      console.error("Error returning asset:", error);
-      toast.error("An error occurred. Please try again.");
+    } else {
+      toast.info("Asset return was canceled.");
+    }
+  };
+
+  // Handle the cancel request action
+  const handleCancelRequest = async (requestId) => {
+    // Show a confirmation alert using SweetAlert
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to cancel this request?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, cancel it!",
+      cancelButtonText: "No, keep it",
+      reverseButtons: true,
+    });
+
+    // If confirmed, proceed to cancel the request
+    if (result.isConfirmed) {
+      try {
+        const res = await axiosSecure.patch(`/requests/cancel/${requestId}`);
+        if (res.data.success) {
+          toast.success("Request canceled successfully!");
+          refetch();
+        } else {
+          toast.error("Failed to cancel request.");
+        }
+      } catch (error) {
+        console.error("Error canceling request:", error);
+        toast.error("An error occurred. Please try again.");
+      }
+    } else {
+      toast.info("Request cancellation was canceled.");
     }
   };
 
@@ -43,9 +114,59 @@ export default function MyAssets() {
     return new Date(date).toLocaleDateString("en-US", options);
   };
 
+  // Create a PDF Document for printing asset details
+  const PrintDocument = ({ request }) => (
+    <Document>
+      <Page style={styles.page}>
+        <View style={styles.header}>
+          <Text style={styles.companyName}>{company?.company || "N/A"}</Text>
+          <Text style={styles.companyInfo}>
+            {company?.companyEmail || "N/A"}
+          </Text>
+          {company?.companyImage && (
+            <Image src={company?.companyImage} style={styles.companyImage} />
+          )}
+        </View>
+
+        <View style={styles.details}>
+          <Text>
+            <strong>Asset Name:</strong> {request.asset.name}
+          </Text>
+          <Text>
+            <strong>Asset Type:</strong> {request.asset.type}
+          </Text>
+          <Text>
+            <strong>Status:</strong> {request.status}
+          </Text>
+          <Text>
+            <strong>Request Date:</strong> {formatDate(request.requestDate)}
+          </Text>
+          <Text>
+            <strong>Approval Date:</strong> {formatDate(request.approvalDate)}
+          </Text>
+        </View>
+
+        <View style={styles.footer}>
+          <Text style={styles.printDate}>
+            Printed on: {new Date().toLocaleDateString()}
+          </Text>
+        </View>
+      </Page>
+    </Document>
+  );
+
+  const styles = StyleSheet.create({
+    page: { padding: 20 },
+    header: { marginBottom: 20, textAlign: "center" },
+    companyName: { fontSize: 18, fontWeight: "bold", marginBottom: 5 },
+    companyImage: { width: 40, height: 40, marginBottom: 3 },
+    details: { marginBottom: 20, fontSize: 12 },
+    footer: { position: "absolute", bottom: 20, left: 20, textAlign: "left" },
+    printDate: { fontSize: 10, fontStyle: "italic" },
+  });
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg container mx-auto mt-6">
-      <h1 className="text-3xl font-semibold text-center text-blue-600 mb-6">
+      <h1 className="text-3xl font-semibold text-center  mb-6">
         My Assets
       </h1>
 
@@ -90,20 +211,43 @@ export default function MyAssets() {
                     {formatDate(request.requestDate)}
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    {formatDate(request.approveDate)}
+                    {formatDate(request.approvalDate)}
                   </td>
-                  <td className="border border-gray-300 px-4 py-2 text-center">
-                    <button
-                      onClick={() => handleReturn(request.asset._id)}
-                      className={`px-4 py-2 rounded transition ${
-                        request.status === "approved" || request.status === "rejected" || request.asset.type==="Non-Returnable"
-                          ? "bg-gray-400 text-gray-200 cursor-not-allowed"
-                          : "bg-green-500 text-white hover:bg-green-600"
-                      }`}
-                      disabled={request.status === "approved" || request.status === "rejected" || request.asset.type==="Non-Returnable"}
-                    >
-                      Return
-                    </button>
+                  <td className="border flex justify-around items-center border-gray-300 px-4 py-4 text-center">
+                    {request.status === "pending" ? (
+                      <button
+                        onClick={() => handleCancelRequest(request._id)}
+                        className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                      >
+                        Cancel Request
+                      </button>
+                    ) : request.status === "approved" ? (
+                      <>
+                        <PDFDownloadLink
+                          document={<PrintDocument request={request} />}
+                          fileName={`${request.asset.name}_Details.pdf`}
+                        >
+                          {({ loading }) =>
+                            loading ? <h1 className="font-semibold ">loading..</h1> : <h1 className="font-semibold underline">Print Info</h1>
+                          }
+                        </PDFDownloadLink>
+                        {request.asset.type === "Returnable" && (
+                          <button
+                            onClick={() => handleReturn(request._id)}
+                            className={`px-4 py-2 rounded transition ${
+                              request.status === "returned"
+                                ? "bg-gray-400 text-gray-200 cursor-not-allowed"
+                                : "bg-green-500 text-white hover:bg-green-600"
+                            }`}
+                            disabled={request.status === "returned"}
+                          >
+                            Return
+                          </button>
+                        )}
+                      </>
+                    ) : (
+                      <span>-</span>
+                    )}
                   </td>
                 </tr>
               ))

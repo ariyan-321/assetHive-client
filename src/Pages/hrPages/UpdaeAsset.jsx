@@ -53,7 +53,7 @@ export default function UpdateAsset() {
     const data = {
       name: productName,
       type: productType,
-      quantity: productQuantity,
+      quantity:parseInt( productQuantity),
       image: productImage, // The uploaded image URL or path
       availability: "available",
     };
