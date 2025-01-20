@@ -5,6 +5,7 @@ import LoadingSpinner from "../../Components/SubComponents/LoagingSpinner";
 import { authContext } from "../../Provider.jsx/AuthProvider";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { Link } from "react-router-dom";
 
 export default function AddAnEmployee() {
   const axiosSecure = useAxiosSecure();
@@ -168,12 +169,15 @@ export default function AddAnEmployee() {
       </h1>
 
      <div className="flex justify-center items-center gap-5 flex-wrap">
-     <h4 className="text-xl font-semibold text-center mb-8">
+     <h4 className="text-xl font-semibold text-center ">
         Employee Count:{employees.length}
       </h4>
-      <h4 className="text-xl font-semibold text-center mb-8">
+      <h4 className="text-xl font-semibold text-center ">
         Package Limit:{company.selectedPackage}
       </h4>
+     </div>
+     <div className="flex justify-end items-center p-7">
+      <Link to={"/increase-limit"} className="btn bg-green-500">Increase Limit</Link>
      </div>
 
       {/* Table Container */}

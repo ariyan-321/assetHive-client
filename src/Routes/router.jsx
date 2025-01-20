@@ -16,6 +16,8 @@ import MyAssets from "../Pages/employeePages/MyAssets";
 import MyTeam from "../Pages/employeePages/MyTeam";
 import AllRequests from "../Pages/hrPages/AllRequests";
 import UpdaeAsset from "../Pages/hrPages/UpdaeAsset";
+import IncreaseLimit from "../Pages/hrPages/IncreaseLimit";
+import Payment from "../Pages/hrPages/Payment";
 
 
 
@@ -74,6 +76,26 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <HrRoute>
               <UpdaeAsset></UpdaeAsset>
+            </HrRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/increase-limit",
+        element: (
+          <PrivateRoute>
+            <HrRoute>
+              <IncreaseLimit></IncreaseLimit>
+            </HrRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/payment",
+        element: (
+          <PrivateRoute>
+            <HrRoute>
+              <Payment></Payment>
             </HrRoute>
           </PrivateRoute>
         ),

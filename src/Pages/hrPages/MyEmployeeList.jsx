@@ -19,23 +19,32 @@ export default function MyEmployeeList() {
   });
 
   // Remove employee function with SweetAlert2 confirmation
-  const handleRemoveEmployee = async (employeeId) => {
+  const handleRemoveEmployee = async (employeeId, userId) => {
     // SweetAlert2 confirmation dialog
     Swal.fire({
-      title: "Are you sure?",
+      title: 'Are you sure?',
       text: "You won't be able to revert this!",
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
           // Perform deletion after confirmation
           await axiosSecure.delete(`/employees/remove/${employeeId}`);
+
+          // Update user data to remove company association
+          await axiosSecure.patch(`/update-employee/${userId}`, {
+            company: null,
+            companyImage: null,
+            companyEmail: null,
+          });
+
           toast.success('Employee removed successfully');
-          refetch(); // Refetch the employee list after deletion
+          refetch(); // Refetch the employee list after successful operations
+
           Swal.fire('Deleted!', 'The employee has been removed.', 'success');
         } catch (error) {
           toast.error('Failed to remove employee');
@@ -75,15 +84,19 @@ export default function MyEmployeeList() {
                 <tr key={employee._id} className="hover:bg-gray-50">
                   <td className="border border-gray-300 px-4 py-2 text-center">{index + 1}</td>
                   <td className="border border-gray-300 px-4 py-2">
-                    <img className="w-[40px] h-[40px] rounded-lg object-cover" src={employee?.user?.image} alt={employee?.user?.name} />
+                    <img
+                      className="w-[40px] h-[40px] rounded-lg object-cover"
+                      src={employee?.user?.image}
+                      alt={employee?.user?.name}
+                    />
                   </td>
                   <td className="border border-gray-300 px-4 py-2">{employee?.user?.name}</td>
                   <td className="border border-gray-300 px-4 py-2">{employee?.user?.role}</td>
                   <td className="border border-gray-300 px-4 py-2">{employee.company}</td>
-                  <td className="border border-gray-300 px-4 py-2">{employee.user?.dateOfBirth || "N/A"}</td>
+                  <td className="border border-gray-300 px-4 py-2">{employee.user?.dateOfBirth || 'N/A'}</td>
                   <td className="border border-gray-300 px-4 py-2 text-center">
                     <button
-                      onClick={() => handleRemoveEmployee(employee._id)}
+                      onClick={() => handleRemoveEmployee(employee._id, employee.user._id)}
                       className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-200"
                     >
                       Remove
