@@ -1,10 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
-import React, { useContext, useState } from 'react';
-import useAxiosSecure from '../../Hooks/useAxiosSecure';
-import LoadingSpinner from '../../Components/SubComponents/LoagingSpinner';
-import { authContext } from '../../Provider.jsx/AuthProvider';
-import toast from 'react-hot-toast';
-import useAxiosPublic from '../../Hooks/useAxiosPublic';
+import { useQuery } from "@tanstack/react-query";
+import React, { useContext, useState } from "react";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import LoadingSpinner from "../../Components/SubComponents/LoagingSpinner";
+import { authContext } from "../../Provider.jsx/AuthProvider";
+import toast from "react-hot-toast";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 export default function AddAnEmployee() {
   const axiosSecure = useAxiosSecure();
@@ -14,7 +14,7 @@ export default function AddAnEmployee() {
   const { user } = useContext(authContext); // Get logged-in user
 
   const { data: company } = useQuery({
-    queryKey: ['users', user],
+    queryKey: ["users", user],
     queryFn: async () => {
       const { data } = await axiosPublic.get(`/users/${user?.email}`);
       return data;
@@ -23,7 +23,7 @@ export default function AddAnEmployee() {
   });
 
   const { data: employees, refetch } = useQuery({
-    queryKey: ['employees', user],
+    queryKey: ["employees", user],
     queryFn: async () => {
       const { data } = await axiosPublic.get(`/employees/${user?.email}`);
       return data;
@@ -31,25 +31,30 @@ export default function AddAnEmployee() {
     enabled: !!user?.email,
   });
 
-  console.log('employees', employees);
+  console.log("employees", employees);
 
   // Fetch users
-  const { data: users, isLoading, error } = useQuery({
-    queryKey: ['users'],
+  const {
+    data: users,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["users"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get('/users');
+      const { data } = await axiosSecure.get("/users");
       return data;
     },
   });
 
   // Filter out the logged-in user and employees from the list of users
+  // Filter users to exclude logged-in user, already added employees, and users affiliated with a company
   const filteredUsers = users?.filter(
     (u) =>
       u.email !== user?.email && // Exclude the logged-in user
-      u.role === "employee" && // Only include users with role 'employee'
+      u.role === "employee" && // Include only users with role 'employee'
+      !u.company && // Include only users not affiliated with any company
       !employees?.some((e) => e.user._id === u._id) // Exclude already added employees
   );
-  
 
   // Handle checkbox changes
   const handleCheckboxChange = (userId) => {
@@ -64,18 +69,21 @@ export default function AddAnEmployee() {
 
   // Handle Add to Team for a single member
   const handleAddSingleMember = (user) => {
+    if (employees.length + 1 > company?.selectedPackage) {
+      toast.error("Your package limit is over. Upgrade your package to add more employees.");
+      return;
+    }
     const data = {
       user,
       company: company?.companyName,
       companyImage: company?.photoURL,
       companyEmail: company?.email,
     };
--
-    axiosSecure
-      .post('/add-employee', [data])
+    -axiosSecure
+      .post("/add-employee", [data])
       .then((res) => {
         if (res.data.insertedIds) {
-          toast.success('Employee Added');
+          toast.success("Employee Added");
 
           // After successfully adding, update the user's data
           updateUserData(user._id);
@@ -93,7 +101,11 @@ export default function AddAnEmployee() {
       selectedMembers.includes(user._id)
     );
     if (teamMembers.length === 0) {
-      toast.error('No members selected!');
+      toast.error("No members selected!");
+      return;
+    }
+    if (employees.length + teamMembers.length > company?.selectedPackage) {
+      toast.error("Your package limit is over. Upgrade your package to add more employees.");
       return;
     }
 
@@ -105,12 +117,11 @@ export default function AddAnEmployee() {
       companyEmail: company?.email,
     }));
 
-
     axiosSecure
-      .post('/add-employee', dataToSend)
+      .post("/add-employee", dataToSend)
       .then((res) => {
         if (res.data.insertedIds) {
-          toast.success('Employees Added');
+          toast.success("Employees Added");
 
           // After successfully adding, update the users' data
           teamMembers.forEach((member) => {
@@ -132,13 +143,13 @@ export default function AddAnEmployee() {
         companyEmail: company?.email,
       })
       .then((updateRes) => {
-        console.log('User updated successfully:', updateRes.data);
-        toast.success('User Data Updated');
-        refetch()
+        console.log("User updated successfully:", updateRes.data);
+        toast.success("User Data Updated");
+        refetch();
       })
       .catch((err) => {
-        console.error('Error updating user data:', err);
-        toast.error('Error updating user data');
+        console.error("Error updating user data:", err);
+        toast.error("Error updating user data");
       });
   };
 
@@ -152,7 +163,18 @@ export default function AddAnEmployee() {
 
   return (
     <div className="container mx-auto my-8 px-4">
-      <h1 className="text-3xl font-semibold text-center mb-8">Add an Employee</h1>
+      <h1 className="text-3xl font-semibold text-center mb-8">
+        Add an Employee
+      </h1>
+
+     <div className="flex justify-center items-center gap-5 flex-wrap">
+     <h4 className="text-xl font-semibold text-center mb-8">
+        Employee Count:{employees.length}
+      </h4>
+      <h4 className="text-xl font-semibold text-center mb-8">
+        Package Limit:{company.selectedPackage}
+      </h4>
+     </div>
 
       {/* Table Container */}
       <div className="overflow-x-auto">
@@ -185,11 +207,13 @@ export default function AddAnEmployee() {
                 </td>
                 <td className="p-4 text-center font-medium">{user.name}</td>
                 <td className="p-4 text-center">
-                <button
+                  <button
                     onClick={() => handleAddSingleMember(user)}
                     disabled={!selectedMembers.includes(user._id)} // Disable button if not selected
                     className={`btn btn-primary btn-sm ${
-                      !selectedMembers.includes(user._id) ? 'btn-disabled opacity-50' : ''
+                      !selectedMembers.includes(user._id)
+                        ? "btn-disabled opacity-50"
+                        : ""
                     }`}
                   >
                     Add to Team
