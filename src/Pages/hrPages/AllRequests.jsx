@@ -11,6 +11,8 @@ export default function AllRequests() {
   const { user } = useContext(authContext);
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [requestsPerPage] = useState(10);
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -89,12 +91,24 @@ export default function AllRequests() {
     );
   }
 
+  // Pagination logic
+  const indexOfLastRequest = currentPage * requestsPerPage;
+  const indexOfFirstRequest = indexOfLastRequest - requestsPerPage;
+  const currentRequests = requests.slice(indexOfFirstRequest, indexOfLastRequest);
+  const totalPages = Math.ceil(requests.length / requestsPerPage);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
   return (
     <div className="p-6 bg-gradient-to-r from-blue-100 via-white to-blue-100 min-h-screen">
-     <Helmet>
+      <Helmet>
         <title>AssetHive | AllRequests</title>
       </Helmet>
-      <h1 className="text-3xl font-bold text-center  mb-8">All Requests</h1>
+      <h1 className="text-3xl font-bold text-center mb-8">All Requests</h1>
 
       {/* Search Bar */}
       <div className="flex justify-center mb-6">
@@ -108,9 +122,9 @@ export default function AllRequests() {
       </div>
 
       {/* Requests Grid */}
-      {requests?.length > 0 ? (
+      {currentRequests?.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {requests.map((request) => (
+          {currentRequests.map((request) => (
             <div
               key={request._id}
               className="bg-white rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transform hover:scale-105 transition-transform duration-300"
@@ -130,7 +144,7 @@ export default function AllRequests() {
                 </p>
                 <p className="text-sm text-gray-600 mb-2">
                   <span className="font-medium">Requester Name:</span>{" "}
-                  {request?.name|| "N/A"}
+                  {request?.name || "N/A"}
                 </p>
                 <p className="text-sm text-gray-600 mb-2">
                   <span className="font-medium">Requester Email:</span>{" "}
@@ -217,6 +231,29 @@ export default function AllRequests() {
       ) : (
         <p className="text-center text-gray-600 text-lg">No requests found.</p>
       )}
+
+      {/* Pagination */}
+      <div className="flex justify-center items-center gap-4 mt-6">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 disabled:opacity-50"
+        >
+          Prev
+        </button>
+
+        <span className="text-lg font-semibold">
+          Page {currentPage} of {totalPages}
+        </span>
+
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }

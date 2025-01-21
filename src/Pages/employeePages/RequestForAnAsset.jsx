@@ -21,6 +21,10 @@ export default function RequestForAnAsset() {
   const [selectedAsset, setSelectedAsset] = useState(null);
   const [modalMessage, setModalMessage] = useState("");
 
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10); // Items per page
+
   // Debouncing the search input for smoothness
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -55,6 +59,17 @@ export default function RequestForAnAsset() {
     },
     enabled: !!employee?.companyEmail,
   });
+
+  // Handle pagination logic
+  const handlePagination = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const totalPages = Math.ceil((assets?.length || 0) / itemsPerPage);
+  const paginatedAssets = assets?.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   // Handle request action
   const handleRequest = async () => {
@@ -178,8 +193,8 @@ export default function RequestForAnAsset() {
               </tr>
             </thead>
             <tbody>
-              {assets?.length > 0 ? (
-                assets.map((asset, index) => (
+              {paginatedAssets?.length > 0 ? (
+                paginatedAssets.map((asset, index) => (
                   <tr
                     key={asset._id}
                     className="hover:bg-blue-50 transition-colors"
@@ -241,6 +256,29 @@ export default function RequestForAnAsset() {
           </table>
         </div>
       )}
+
+      {/* Pagination Controls */}
+      {/* Pagination Controls */}
+<div className="flex justify-center mt-6 items-center">
+  <button
+    onClick={() => handlePagination(currentPage - 1)}
+    disabled={currentPage === 1}
+    className="px-4 py-2 bg-blue-500 text-white rounded-lg mr-2 hover:bg-blue-600"
+  >
+    Previous
+  </button>
+  <span className="px-4 py-2">
+    Page {currentPage} of {totalPages}
+  </span>
+  <button
+    onClick={() => handlePagination(currentPage + 1)}
+    disabled={currentPage === totalPages}
+    className="px-4 py-2 bg-blue-500 text-white rounded-lg ml-2 hover:bg-blue-600"
+  >
+    Next
+  </button>
+</div>
+
 
       {/* Request Modal */}
       {isModalOpen && (

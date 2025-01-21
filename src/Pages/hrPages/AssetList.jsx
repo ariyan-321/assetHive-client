@@ -14,6 +14,8 @@ export default function AssetList() {
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterType, setFilterType] = useState("all");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [assetsPerPage] = useState(10);
 
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 
@@ -79,6 +81,18 @@ export default function AssetList() {
     });
   };
 
+  // Handle page change
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= Math.ceil(assets.length / assetsPerPage)) {
+      setCurrentPage(page);
+    }
+  };
+
+  // Get the assets for the current page
+  const indexOfLastAsset = currentPage * assetsPerPage;
+  const indexOfFirstAsset = indexOfLastAsset - assetsPerPage;
+  const currentAssets = assets.slice(indexOfFirstAsset, indexOfLastAsset);
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -97,10 +111,10 @@ export default function AssetList() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 sm:p-8 transition-all duration-300">
-   <Helmet>
+      <Helmet>
         <title>AssetHive | AssetList</title>
       </Helmet>
-      <h1 className="text-3xl font-bold text-center mb-6 ">Asset List</h1>
+      <h1 className="text-3xl font-bold text-center mb-6">Asset List</h1>
 
       {/* Search Section */}
       <div className="mb-6 flex flex-col md:flex-row gap-4 justify-center items-center">
@@ -160,8 +174,8 @@ export default function AssetList() {
             </tr>
           </thead>
           <tbody>
-            {assets.length > 0 ? (
-              assets.map((asset, index) => (
+            {currentAssets.length > 0 ? (
+              currentAssets.map((asset, index) => (
                 <tr
                   key={asset._id}
                   className="border-b hover:bg-gray-50 transition-all duration-300"
@@ -213,6 +227,29 @@ export default function AssetList() {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination */}
+      <div className="flex justify-center items-center gap-4 mt-6">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 disabled:opacity-50"
+        >
+          Prev
+        </button>
+
+        <span className="text-lg font-semibold">
+          Page {currentPage} of {Math.ceil(assets.length / assetsPerPage)}
+        </span>
+
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === Math.ceil(assets.length / assetsPerPage)}
+          className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 disabled:opacity-50"
+        >
+          Next
+        </button>
       </div>
     </div>
   );

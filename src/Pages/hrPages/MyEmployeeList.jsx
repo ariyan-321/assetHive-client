@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { authContext } from '../../Provider.jsx/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
@@ -10,6 +10,10 @@ export default function MyEmployeeList() {
   const { user } = useContext(authContext);
   const axiosSecure = useAxiosSecure();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const [paginatedEmployees, setPaginatedEmployees] = useState([]);
+
   // Fetching employee list
   const { data: employees, isLoading, isError, refetch } = useQuery({
     queryKey: ['employees'],
@@ -18,6 +22,15 @@ export default function MyEmployeeList() {
       return data;
     },
   });
+
+  // Handle pagination
+  useEffect(() => {
+    if (employees?.length > 0) {
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      setPaginatedEmployees(employees.slice(startIndex, endIndex));
+    }
+  }, [employees, currentPage]);
 
   // Remove employee function with SweetAlert2 confirmation
   const handleRemoveEmployee = async (employeeId, userId) => {
@@ -55,6 +68,21 @@ export default function MyEmployeeList() {
     });
   };
 
+  // Pagination helpers
+  const totalPages = Math.ceil((employees?.length || 0) / itemsPerPage);
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   if (isLoading) {
     return <p className="text-center">Loading employees...</p>;
   }
@@ -68,7 +96,7 @@ export default function MyEmployeeList() {
       <Helmet>
         <title>AssetHive | MyEmployeeList</title>
       </Helmet>
-      <h1 className="text-3xl font-semibold mb-6 text-gray-800">My Employee List:({employees.length})</h1>
+      <h1 className="text-3xl font-semibold mb-6 text-gray-800">My Employee List: ({employees?.length || 0})</h1>
       <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
         <table className="table-auto w-full text-sm md:text-base border-collapse border border-gray-300">
           <thead className="bg-blue-100">
@@ -83,10 +111,12 @@ export default function MyEmployeeList() {
             </tr>
           </thead>
           <tbody>
-            {employees?.length > 0 ? (
-              employees.map((employee, index) => (
+            {paginatedEmployees?.length > 0 ? (
+              paginatedEmployees.map((employee, index) => (
                 <tr key={employee._id} className="hover:bg-gray-50">
-                  <td className="border border-gray-300 px-4 py-2 text-center">{index + 1}</td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">
+                    {index + 1 + (currentPage - 1) * itemsPerPage}
+                  </td>
                   <td className="border border-gray-300 px-4 py-2">
                     <img
                       className="w-[40px] h-[40px] rounded-lg object-cover"
@@ -117,6 +147,25 @@ export default function MyEmployeeList() {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="flex justify-between items-center mt-4">
+        <button
+          onClick={handlePrevPage}
+          className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition duration-200"
+          disabled={currentPage === 1}
+        >
+          Prev
+        </button>
+        <span className="text-lg">{`Page ${currentPage} of ${totalPages}`}</span>
+        <button
+          onClick={handleNextPage}
+          className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition duration-200"
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
