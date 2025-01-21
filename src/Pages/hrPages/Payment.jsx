@@ -13,6 +13,7 @@ export default function Payment() {
   const { user } = useContext(authContext);
   const location = useLocation();
   const data = location.state?.selectedPackage;
+  const stateLocation = location.state?.location;
 
   // Use TanStack Query (React Query) to fetch the HR Manager data
   const axiosPublic = useAxiosPublic();
@@ -58,7 +59,7 @@ export default function Payment() {
       {/* Payment Form */}
       <div className="border-t pt-6 mt-6">
         <Elements stripe={stripePromise}>
-          <CheckoutForm data={data} id={hrManager?._id}></CheckoutForm>
+          <CheckoutForm data={data} id={hrManager?._id} stateLocation={stateLocation}></CheckoutForm>
         </Elements>
       </div>
     </div>

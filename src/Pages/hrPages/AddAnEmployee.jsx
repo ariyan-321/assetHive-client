@@ -5,7 +5,7 @@ import LoadingSpinner from "../../Components/SubComponents/LoagingSpinner";
 import { authContext } from "../../Provider.jsx/AuthProvider";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AddAnEmployee() {
   const axiosSecure = useAxiosSecure();
@@ -13,6 +13,8 @@ export default function AddAnEmployee() {
   const [selectedMembers, setSelectedMembers] = useState([]);
 
   const { user } = useContext(authContext); // Get logged-in user
+
+  const navigate=useNavigate();
 
   const { data: company } = useQuery({
     queryKey: ["users", user],
@@ -123,6 +125,7 @@ export default function AddAnEmployee() {
       .then((res) => {
         if (res.data.insertedIds) {
           toast.success("Employees Added");
+         
 
           // After successfully adding, update the users' data
           teamMembers.forEach((member) => {
@@ -146,6 +149,7 @@ export default function AddAnEmployee() {
       .then((updateRes) => {
         console.log("User updated successfully:", updateRes.data);
         toast.success("User Data Updated");
+        navigate("/my-employee-list")
         refetch();
       })
       .catch((err) => {

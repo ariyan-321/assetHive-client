@@ -1,6 +1,8 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function IncreaseLimit() {
+  const navigate=useNavigate();
   const packages = [
     { members: 5, price: 5 },
     { members: 10, price: 8 },
@@ -8,8 +10,8 @@ export default function IncreaseLimit() {
   ];
 
   const handleIncreaseLimit = (members, price) => {
-    // Function to handle the increase limit logic
-    alert(`Package selected: ${members} members for $${price}`);
+    navigate("/payment", { state: { selectedPackage:members,location:"/add-an-employee" } })
+   
   };
 
   return (

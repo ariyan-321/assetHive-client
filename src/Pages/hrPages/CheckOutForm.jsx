@@ -5,7 +5,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { authContext } from "../../Provider.jsx/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
-export default function CheckoutForm({ data, id }) {
+export default function CheckoutForm({ data, id, stateLocation }) {
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
@@ -16,7 +16,8 @@ export default function CheckoutForm({ data, id }) {
   const navigate = useNavigate();
 
   const price = data === 5 ? 5 : data === 10 ? 8 : data === 20 ? 15 : 8;
-  const selectedPackage = price === 5 ? 5 : price === 8 ? 10 : price === 15 ? 20 : null;
+  const selectedPackage =
+    price === 5 ? 5 : price === 8 ? 10 : price === 15 ? 20 : null;
 
   useEffect(() => {
     axiosSecure.post("/create-payment-intent", { price }).then((res) => {
@@ -72,11 +73,14 @@ export default function CheckoutForm({ data, id }) {
         setTransactionId(paymentIntent?.id);
         // Make a PATCH request to update the user's data with the new package and set hasPaid to true
         try {
-          const response = await axiosSecure.patch(`/user-payment-success/${id}`, {
-            selectedPackage, // Send the selected package to add to the user's package
-          });
+          const response = await axiosSecure.patch(
+            `/user-payment-success/${id}`,
+            {
+              selectedPackage, // Send the selected package to add to the user's package
+            }
+          );
           console.log(response.data);
-          navigate("/");
+          navigate(stateLocation||"/");
         } catch (err) {
           setIsProcessing(false);
           console.error("Error updating user data:", err);

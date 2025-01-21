@@ -48,6 +48,7 @@ export default function Home() {
           </div>
         </>
       )}
+      {user && !data?.companyName && <p className="text-4xl my-12 text-red-500 text-center font-semibold">(Contact with Your Hr)</p>}
 
       {
         data?.role==="employee" &&
