@@ -110,7 +110,7 @@ export default function Navbar() {
           </div>
           <Link to={"/"} className="">
             <img
-              className="w-[60px] h-[60px] object-cover"
+              className="w-[60px] h-[60px] object-cover rounded-lg"
               src={data?.companyImage || data?.photoURL || "/images/assetHive.png"}
               alt="Company Logo"
             />

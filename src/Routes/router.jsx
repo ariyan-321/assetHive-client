@@ -94,9 +94,9 @@ export const router = createBrowserRouter([
         path: "/payment",
         element: (
           <PrivateRoute>
-            <HrRoute>
+          
               <Payment></Payment>
-            </HrRoute>
+           
           </PrivateRoute>
         ),
       },

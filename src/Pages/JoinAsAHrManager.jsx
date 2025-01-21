@@ -5,7 +5,8 @@ import { imageUpload } from "../API/utils";
 import { authContext } from "../Provider.jsx/AuthProvider";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import Payment from "./hrPages/Payment";
 
 export default function JoinAsAHrManager() {
   const { createProfile, updateUserProfile } = useContext(authContext);
@@ -26,7 +27,7 @@ export default function JoinAsAHrManager() {
     const email = e.target.email.value;
     const password = e.target.currentPassword.value;
     const dateOfBirth = e.target.date.value;
-    const selectedPackage = e.target.package.value;
+    const selectedPackage = parseInt(e.target.package.value);
 
     const passwordValidation = (password) => {
       const regex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
@@ -60,8 +61,8 @@ export default function JoinAsAHrManager() {
       photoURL,
       email,
       dateOfBirth,
-      selectedPackage:parseInt(selectedPackage),
       role: "hr-manager",
+      hasPaid:false,
     };
 
     try {
@@ -70,8 +71,7 @@ export default function JoinAsAHrManager() {
       toast.success("Successfully Registered");
     const response = await axiosPublic.post("/users", {hrInfo} );
       console.log(response.data);
-      navigate("/")
-
+      navigate("/payment", { state: { selectedPackage } });
     } catch (err) {
       toast.error(err.message); // Error handling
       setFormError("Registration failed. Please try again."); // Show registration error
