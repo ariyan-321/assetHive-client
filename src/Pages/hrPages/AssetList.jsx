@@ -4,6 +4,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { authContext } from "../../Provider.jsx/AuthProvider";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 export default function AssetList() {
   const axiosSecure = useAxiosSecure();
@@ -29,9 +30,15 @@ export default function AssetList() {
     data: assets = [],
     isLoading,
     isError,
-    refetch
+    refetch,
   } = useQuery({
-    queryKey: ["assets", debouncedSearchTerm, filterStatus, filterType, sortOrder],
+    queryKey: [
+      "assets",
+      debouncedSearchTerm,
+      filterStatus,
+      filterType,
+      sortOrder,
+    ],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/asset-list/${user?.email}`, {
         params: {
@@ -90,9 +97,10 @@ export default function AssetList() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 sm:p-8 transition-all duration-300">
-      <h1 className="text-3xl font-bold text-center mb-6 ">
-        Asset List
-      </h1>
+   <Helmet>
+        <title>AssetHive | AssetList</title>
+      </Helmet>
+      <h1 className="text-3xl font-bold text-center mb-6 ">Asset List</h1>
 
       {/* Search Section */}
       <div className="mb-6 flex flex-col md:flex-row gap-4 justify-center items-center">
@@ -144,7 +152,7 @@ export default function AssetList() {
             <tr>
               <th className="py-3 px-6">#</th>
               <th className="py-3 px-6">Name</th>
-              <th className="py-3 px-6">HR Email</th>
+              <th className="py-3 px-6">Date Added</th>
               <th className="py-3 px-6">Type</th>
               <th className="py-3 px-6">Quantity</th>
               <th className="py-3 px-6">Image</th>
@@ -160,7 +168,15 @@ export default function AssetList() {
                 >
                   <td className="py-3 px-6">{index + 1}</td>
                   <td className="py-3 px-6">{asset.name}</td>
-                  <td className="py-3 px-6">{asset.HrEmail}</td>
+                  <td className="py-3 px-6">
+                    {asset.postDate
+                      ? new Intl.DateTimeFormat("en-US", {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        }).format(new Date(Number(asset.postDate)))
+                      : "Invalid Date"}
+                  </td>
                   <td className="py-3 px-6">{asset.type}</td>
                   <td className="py-3 px-6">{asset.quantity}</td>
                   <td className="py-3 px-6">
@@ -172,7 +188,8 @@ export default function AssetList() {
                   </td>
                   <td className="py-3 px-6 flex space-x-2">
                     {/* Action Buttons */}
-                    <Link to={`/update/asset/${asset._id}`}
+                    <Link
+                      to={`/update/asset/${asset._id}`}
                       className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-all duration-300"
                     >
                       Update

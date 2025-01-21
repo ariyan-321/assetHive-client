@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { Navigate, useNavigate } from "react-router-dom";
 import Payment from "./hrPages/Payment";
+import { Helmet } from "react-helmet";
 
 export default function JoinAsAHrManager() {
   const { createProfile, updateUserProfile } = useContext(authContext);
@@ -83,6 +84,9 @@ export default function JoinAsAHrManager() {
 
   return (
     <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen bg-gray-100 p-6">
+    <Helmet>
+        <title>AssetHive | Register</title>
+      </Helmet>
       <div className="w-full lg:w-1/2 max-w-md bg-white text-gray-800 p-6 md:p-8 rounded-xl shadow-2xl">
         <h1 className="text-3xl font-semibold text-center text-gray-700 mb-8">
           Join as an HR Manager

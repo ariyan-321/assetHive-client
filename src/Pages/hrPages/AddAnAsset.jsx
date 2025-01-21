@@ -6,6 +6,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import { authContext } from "../../Provider.jsx/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 export default function AddAnAsset() {
   const [productName, setProductName] = useState("");
@@ -77,6 +78,9 @@ export default function AddAnAsset() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 md:flex-row md:justify-around 2xl:justify-between">
+     <Helmet>
+        <title>AssetHive | AddAnAsset</title>
+      </Helmet>
       {/* Form Section */}
       <div className="w-full max-w-lg p-8 rounded-xl shadow-lg">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">
@@ -139,16 +143,7 @@ export default function AddAnAsset() {
             />
           </div>
 
-          {/* Availability Dropdown */}
-          <div>
-            <label
-              htmlFor="availability"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Availability
-            </label>
-           
-          </div>
+          
 
           {/* Product Image */}
           <div>

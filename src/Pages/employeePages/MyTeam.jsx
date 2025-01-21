@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { authContext } from '../../Provider.jsx/AuthProvider';
+import { Helmet } from 'react-helmet';
 
 export default function MyTeam() {
   const { user } = useContext(authContext);
@@ -31,6 +32,9 @@ export default function MyTeam() {
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
+    <Helmet>
+        <title>AssetHive | MyTeam</title>
+      </Helmet>
       <h1 className="text-3xl font-bold text-center text-blue-600 mb-8">
         My Team
       </h1>

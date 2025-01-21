@@ -14,13 +14,14 @@ import {
 } from "@react-pdf/renderer";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { Helmet } from "react-helmet";
 
 export default function MyAssets() {
   const { user } = useContext(authContext);
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
 
-  const { data: company } = useQuery({
+  const { data: company, isLoading: isCompanyLoading } = useQuery({
     queryKey: ["users", user],
     queryFn: async () => {
       const { data } = await axiosPublic.get(`/users/${user?.email}`);
@@ -33,7 +34,7 @@ export default function MyAssets() {
   console.log("company", company);
 
   // Fetch requests data
-  const { data: requests, refetch } = useQuery({
+  const { data: requests, refetch, isLoading: isRequestsLoading } = useQuery({
     queryKey: ["requests"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(
@@ -166,101 +167,112 @@ export default function MyAssets() {
   });
   return (
     <div className="p-6 bg-white rounded-lg shadow-lg container mx-auto mt-6">
-      <h1 className="text-3xl font-semibold text-center  mb-6">
-        My Assets
-      </h1>
+      <Helmet>
+        <title>AssetHive | MyAssets</title>
+      </Helmet>
+      <h1 className="text-3xl font-semibold text-center  mb-6">My Assets</h1>
 
-      <div className="overflow-x-auto">
-        <table className="table-auto w-full border-collapse border border-gray-300 text-sm md:text-base">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border border-gray-300 px-4 py-2">#</th>
-              <th className="border border-gray-300 px-4 py-2">Image</th>
-              <th className="border border-gray-300 px-4 py-2">Name</th>
-              <th className="border border-gray-300 px-4 py-2">Type</th>
-              <th className="border border-gray-300 px-4 py-2">Status</th>
-              <th className="border border-gray-300 px-4 py-2">Request Date</th>
-              <th className="border border-gray-300 px-4 py-2">Approve Date</th>
-              <th className="border border-gray-300 px-4 py-2">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {requests?.length > 0 ? (
-              requests.map((request, index) => (
-                <tr key={request._id} className="hover:bg-gray-50">
-                  <td className="border border-gray-300 px-4 py-2 text-center">
-                    {index + 1}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-center">
-                    <img
-                      src={request.asset.image}
-                      alt={request.asset.name}
-                      className="h-16 w-16 object-cover rounded"
-                    />
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {request.asset.name}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {request.asset.type}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {request.status}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {formatDate(request.requestDate)}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {formatDate(request.approvalDate)}
-                  </td>
-                  <td className="border flex justify-around items-center border-gray-300 px-4 py-4 text-center">
-                    {request.status === "pending" ? (
-                      <button
-                        onClick={() => handleCancelRequest(request._id)}
-                        className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-                      >
-                        Cancel Request
-                      </button>
-                    ) : request.status === "approved" ? (
-                      <>
-                        <PDFDownloadLink
-                          document={<PrintDocument request={request} />}
-                          fileName={`${request.asset.name}_Details.pdf`}
+      {(isRequestsLoading || isCompanyLoading) ? (
+        <div className="flex justify-center items-center h-40">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        </div>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="table-auto w-full border-collapse border border-gray-300 text-sm md:text-base">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="border border-gray-300 px-4 py-2">#</th>
+                <th className="border border-gray-300 px-4 py-2">Image</th>
+                <th className="border border-gray-300 px-4 py-2">Name</th>
+                <th className="border border-gray-300 px-4 py-2">Type</th>
+                <th className="border border-gray-300 px-4 py-2">Status</th>
+                <th className="border border-gray-300 px-4 py-2">Request Date</th>
+                <th className="border border-gray-300 px-4 py-2">Approve Date</th>
+                <th className="border border-gray-300 px-4 py-2">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {requests?.length > 0 ? (
+                requests.map((request, index) => (
+                  <tr key={request._id} className="hover:bg-gray-50">
+                    <td className="border border-gray-300 px-4 py-2 text-center">
+                      {index + 1}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2 text-center">
+                      <img
+                        src={request.asset.image}
+                        alt={request.asset.name}
+                        className="h-16 w-16 object-cover rounded"
+                      />
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {request.asset.name}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {request.asset.type}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {request.status}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {formatDate(request.requestDate)}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {formatDate(request.approvalDate)}
+                    </td>
+                    <td className="border flex justify-around items-center border-gray-300 px-4 py-4 text-center">
+                      {request.status === "pending" ? (
+                        <button
+                          onClick={() => handleCancelRequest(request._id)}
+                          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
                         >
-                          {({ loading }) =>
-                            loading ? <h1 className="font-semibold ">loading..</h1> : <h1 className="font-semibold underline">Print Info</h1>
-                          }
-                        </PDFDownloadLink>
-                        {request.asset.type === "Returnable" && (
-                          <button
-                            onClick={() => handleReturn(request._id)}
-                            className={`px-4 py-2 rounded transition ${
-                              request.status === "returned"
-                                ? "bg-gray-400 text-gray-200 cursor-not-allowed"
-                                : "bg-green-500 text-white hover:bg-green-600"
-                            }`}
-                            disabled={request.status === "returned"}
+                          Cancel Request
+                        </button>
+                      ) : request.status === "approved" ? (
+                        <>
+                          <PDFDownloadLink
+                            document={<PrintDocument request={request} />}
+                            fileName={`${request.asset.name}_Details.pdf`}
                           >
-                            Return
-                          </button>
-                        )}
-                      </>
-                    ) : (
-                      <span>-</span>
-                    )}
+                            {({ loading }) =>
+                              loading ? (
+                                <h1 className="font-semibold ">loading..</h1>
+                              ) : (
+                                <h1 className="font-semibold underline">Print Info</h1>
+                              )
+                            }
+                          </PDFDownloadLink>
+                          {request.asset.type === "Returnable" && (
+                            <button
+                              onClick={() => handleReturn(request._id)}
+                              className={`px-4 py-2 rounded transition ${
+                                request.status === "returned"
+                                  ? "bg-gray-400 text-gray-200 cursor-not-allowed"
+                                  : "bg-green-500 text-white hover:bg-green-600"
+                              }`}
+                              disabled={request.status === "returned"}
+                            >
+                              Return
+                            </button>
+                          )}
+                        </>
+                      ) : (
+                        <span>-</span>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="8" className="text-center py-4 text-gray-500">
+                    No asset requests found.
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="8" className="text-center py-4 text-gray-500">
-                  No asset requests found.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }

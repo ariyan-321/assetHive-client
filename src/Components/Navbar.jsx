@@ -147,7 +147,7 @@ export default function Navbar() {
                 <a>{user?.displayName}</a>
               </li>
               <li>
-                <a className="justify-between">Profile</a>
+                <Link to={"/profile"} className="justify-between">Profile</Link>
               </li>
 
               <li>

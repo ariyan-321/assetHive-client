@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { authContext } from "../../Provider.jsx/AuthProvider";
 import { imageUpload } from "../../API/utils"; // Assuming this is an async function
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 export default function Profile() {
   const { user, updateUserProfile } = useContext(authContext);
@@ -40,6 +41,9 @@ export default function Profile() {
 
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col items-center py-10">
+   <Helmet>
+        <title>AssetHive | Profile</title>
+      </Helmet>
       <h1 className="text-4xl font-semibold text-blue-600 mb-5">Your Profile</h1>
 
       <div className="bg-white shadow-xl rounded-lg w-full sm:w-[400px] p-6 mb-6 text-center">

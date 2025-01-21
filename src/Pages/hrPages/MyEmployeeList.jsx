@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 export default function MyEmployeeList() {
   const { user } = useContext(authContext);
@@ -64,7 +65,10 @@ export default function MyEmployeeList() {
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-semibold mb-6 text-gray-800">My Employee List</h1>
+      <Helmet>
+        <title>AssetHive | MyEmployeeList</title>
+      </Helmet>
+      <h1 className="text-3xl font-semibold mb-6 text-gray-800">My Employee List:({employees.length})</h1>
       <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
         <table className="table-auto w-full text-sm md:text-base border-collapse border border-gray-300">
           <thead className="bg-blue-100">

@@ -6,6 +6,7 @@ import { authContext } from "../../Provider.jsx/AuthProvider";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 export default function AddAnEmployee() {
   const axiosSecure = useAxiosSecure();
@@ -168,6 +169,9 @@ export default function AddAnEmployee() {
 
   return (
     <div className="container mx-auto my-8 px-4">
+     <Helmet>
+        <title>AssetHive | AddAnEmployee</title>
+      </Helmet>
       <h1 className="text-3xl font-semibold text-center mb-8">
         Add an Employee
       </h1>

@@ -4,6 +4,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { authContext } from "../../Provider.jsx/AuthProvider";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 export default function AllRequests() {
   const axiosSecure = useAxiosSecure();
@@ -90,6 +91,9 @@ export default function AllRequests() {
 
   return (
     <div className="p-6 bg-gradient-to-r from-blue-100 via-white to-blue-100 min-h-screen">
+     <Helmet>
+        <title>AssetHive | AllRequests</title>
+      </Helmet>
       <h1 className="text-3xl font-bold text-center  mb-8">All Requests</h1>
 
       {/* Search Bar */}
@@ -123,6 +127,10 @@ export default function AllRequests() {
                 <p className="text-sm text-gray-600 mb-2">
                   <span className="font-medium">Asset Type:</span>{" "}
                   {request.asset.type}
+                </p>
+                <p className="text-sm text-gray-600 mb-2">
+                  <span className="font-medium">Requester Name:</span>{" "}
+                  {request?.name|| "N/A"}
                 </p>
                 <p className="text-sm text-gray-600 mb-2">
                   <span className="font-medium">Requester Email:</span>{" "}

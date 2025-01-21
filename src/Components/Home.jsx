@@ -15,6 +15,7 @@ import LimitedStockItems from "./hrComponents/LimitedStockItems";
 import PieChart from "./hrComponents/PieChart";
 import HrEvents from "./hrComponents/hrEvents";
 import Calander from "./hrComponents/Calander";
+import { Helmet } from "react-helmet";
 
 export default function Home() {
   const { user } = useContext(authContext);
@@ -33,6 +34,9 @@ export default function Home() {
 
   return (
     <div className="container mx-auto">
+       <Helmet>
+        <title>AssetHive | Home</title>
+      </Helmet>
       {!user && (
         <>
           <div className="my-12">
@@ -48,10 +52,13 @@ export default function Home() {
           </div>
         </>
       )}
-      {user && !data?.companyName && <p className="text-4xl my-12 text-red-500 text-center font-semibold">(Contact with Your Hr)</p>}
+     {user && !data?.companyEmail && data?.role !== "hr-manager" && (
+  <p className="text-4xl my-12 text-red-500 text-center font-semibold">
+    You are not affiliated with any company. Please contact your HR manager.
+  </p>
+)}
 
-      {
-        data?.role==="employee" &&
+      {data?.role === "employee" && (
         <>
           <div className="my-12">
             <MyPendingRequests></MyPendingRequests>
@@ -68,11 +75,9 @@ export default function Home() {
             <Events></Events>
           </div>
         </>
-      }
+      )}
 
-
-{
-        data?.role==="hr-manager" &&
+      {data?.role === "hr-manager" && (
         <>
           <div className="my-12">
             <PendingRequests></PendingRequests>
@@ -96,9 +101,7 @@ export default function Home() {
             <Calander></Calander>
           </div>
         </>
-      }
-
-
+      )}
     </div>
   );
 }
