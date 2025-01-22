@@ -5,8 +5,8 @@
 ## 📝 Website Information
 
 - **Website Name**: AssetHive
-- **Admin Username**: admin@assethive.com
-- **Admin Password**: Admin1234
+- **Hr Username**: hrmanager@gmail.com
+- **Hr Password**: Hrmanager@321
 - **Live Site URL**: [https://assignment-12-ariyan.netlify.app](https://assignment-12-ariyan.netlify.app) 
 
 ## 🔥 Key Features

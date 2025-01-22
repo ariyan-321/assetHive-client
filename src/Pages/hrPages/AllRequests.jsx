@@ -194,10 +194,12 @@ export default function AllRequests() {
                     disabled={
                       request.status === "rejected" ||
                       request.status === "returned" ||
+                      request.status === "cancelled" ||
                       request.status === "approved"
                     }
                     className={`text-sm px-4 py-2 rounded-lg transition-colors ${
                       request.status === "returned" ||
+                      request.status === "cancelled" ||
                       request.status === "rejected"
                         ? "bg-gray-500 text-white hover:bg-gray-600"
                         : "bg-green-500 text-white hover:bg-green-600"
@@ -210,11 +212,13 @@ export default function AllRequests() {
                     disabled={
                       request.status === "approved" ||
                       request.status === "returned" ||
+                      request.status === "cancelled" ||
                       request.status === "rejected"
                     }
                     className={`text-sm px-4 py-2 rounded-lg transition-colors ${
                       request.status === "returned" ||
                       request.status === "approved" ||
+                      request.status === "cancelled" ||
                       request.status === "rejected"
                         ? "bg-gray-500 text-white hover:bg-gray-600"
                         : "bg-red-500 text-white hover:bg-red-600"
