@@ -10,7 +10,6 @@
 - **Live Site URL**: [https://assignment-12-ariyan.netlify.app](https://assignment-12-ariyan.netlify.app) 
 
 ## 🔥 Key Features
-
 1. **Role-Based Access**:
    - Employees, HR Managers, and Admins have personalized dashboards with different levels of access and functionality.
 
@@ -42,6 +41,8 @@
 
 10. **Responsive Design**:
     - Fully responsive design for a seamless experience across desktop and mobile devices.
+
+
 
 ## 🚀 Technologies Used
 
