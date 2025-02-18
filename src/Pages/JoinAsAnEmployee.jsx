@@ -106,7 +106,7 @@ export default function JoinAsAnEmployee() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen bg-white p-6">
+    <div className="container mx-auto flex flex-col gap-5 lg:flex-row items-center justify-center min-h-screen bg-white p-6">
       <Helmet>
         <title>AssetHive | Register</title>
       </Helmet>

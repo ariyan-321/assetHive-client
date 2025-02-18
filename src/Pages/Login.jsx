@@ -62,7 +62,7 @@ export default function Login() {
  
 
   return (
-    <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen bg-gradient-to-r from-gray-100 to-gray-200 p-6">
+    <div className="container mx-auto gap-5 flex flex-col lg:flex-row items-center justify-center min-h-screen p-6">
       <Helmet>
         <title>AssetHive | Login</title>
       </Helmet>

@@ -83,7 +83,7 @@ export default function JoinAsAHrManager() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen bg-gray-100 p-6">
+    <div className="container mx-auto flex flex-col lg:flex-row items-center justify-center min-h-screen gap-5 p-6">
     <Helmet>
         <title>AssetHive | Register</title>
       </Helmet>
