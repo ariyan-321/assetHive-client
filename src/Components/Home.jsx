@@ -19,6 +19,7 @@ import { Helmet } from "react-helmet";
 import FaqPage from "./SubComponents/FaqPage";
 import Reviews from "./SubComponents/Reviews";
 import NewsLetter from "./SubComponents/NewsLetter";
+import Promotion from "./SubComponents/Promotion";
 
 export default function Home() {
   const { user } = useContext(authContext);
@@ -62,6 +63,9 @@ export default function Home() {
           </div>
           <div className="my-20">
             <NewsLetter></NewsLetter>
+          </div>
+          <div className="my-20">
+            <Promotion></Promotion>
           </div>
         </>
       )}
