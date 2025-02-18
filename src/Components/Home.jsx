@@ -67,6 +67,9 @@ export default function Home() {
           <div className="my-20">
             <Promotion></Promotion>
           </div>
+          <div className="my-20">
+            <Calander></Calander>
+          </div>
         </>
       )}
      {user && !data?.companyEmail && data?.role !== "hr-manager" && (
