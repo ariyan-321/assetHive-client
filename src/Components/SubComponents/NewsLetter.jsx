@@ -36,7 +36,7 @@ export default function NewsLetter() {
   };
 
   return (
-    <div className="newsletter w-[80%] mx-auto mt-24 bg-gradient-to-r  bg-blue-400  text-white py-12  rounded-xl ">
+    <div className="newsletter w-[90%] md:w-[80%] mx-auto mt-24 bg-gradient-to-r  bg-blue-400  text-white py-12  rounded-xl ">
       <h2 className="text-3xl text-center mb-6">Subscribe to our Newsletter</h2>
       <p className="text-center mb-8">
         Get the latest game reviews, updates, and more delivered to your inbox.
@@ -44,7 +44,7 @@ export default function NewsLetter() {
       <div className="flex justify-center">
         <form
           onSubmit={handleNewsletterSubmit}
-          className="flex gap-4 w-full max-w-md"
+          className="flex gap-4 w-full max-w-md px-5"
         >
           <input
             type="email"

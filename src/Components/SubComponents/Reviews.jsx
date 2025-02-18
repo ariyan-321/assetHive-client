@@ -1,34 +1,35 @@
 import React from "react";
 
 export default function Reviews() {
-  const reviews = [
-    {
-      name: "John Doe",
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/John_Doe%2C_born_John_Nommensen_Duchac.jpg/1200px-John_Doe%2C_born_John_Nommensen_Duchac.jpg",
-      review:
-        "This platform has been amazing! It helped us find volunteers effortlessly.",
-      rating: 5,
-    },
-    {
-      name: "Jane Smith",
-      image:
-        "https://i.pinimg.com/736x/2a/26/df/2a26df12b8fab576a93f244212cb6673.jpg",
-      review:
-        "A seamless experience! Highly recommend this service to everyone.",
-      rating: 4,
-    },
-    {
-      name: "Michael Johnson",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxAA8303_86z01TPPqxwesKe7q_OJSJgWxvg&s",
-      review: "Great platform with excellent features and user support.",
-      rating: 5,
-    },
-  ];
+    const reviews = [
+        {
+          name: "John Doe",
+          image:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/John_Doe%2C_born_John_Nommensen_Duchac.jpg/1200px-John_Doe%2C_born_John_Nommensen_Duchac.jpg",
+          review:
+            "AssetHive has completely transformed how we manage our company's assets. It's efficient and easy to use!",
+          rating: 5,
+        },
+        {
+          name: "Jane Smith",
+          image:
+            "https://i.pinimg.com/736x/2a/26/df/2a26df12b8fab576a93f244212cb6673.jpg",
+          review:
+            "A powerful tool for asset tracking! The real-time insights help us make informed decisions quickly.",
+          rating: 4,
+        },
+        {
+          name: "Michael Johnson",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxAA8303_86z01TPPqxwesKe7q_OJSJgWxvg&s",
+          review: "Managing company resources has never been easier. AssetHive is a must-have!",
+          rating: 5,
+        },
+      ];
+      
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
+    <div className="w-[85%] mx-auto p-6">
       <h2 className="text-4xl font-bold text-center mb-8 text-green-600">
         Client Reviews
       </h2>

@@ -9,7 +9,7 @@ export default function Calander() {
   const onChange = (newDate) => setDate(newDate);
 
   return (
-    <div className="w-[80%] mx-auto p-6 sm:p-8 space-y-6">
+    <div className="w-[85%] mx-auto p-6 sm:p-8 space-y-6">
       <h1 className="text-4xl font-bold text-center text-gray-800 mb-6">Company Calendar</h1>
 
       <div className="bg-white rounded-lg shadow-lg p-6 flex justify-center items-center">
