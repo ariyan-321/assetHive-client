@@ -20,7 +20,7 @@ export default function FaqPage() {
 
   return (
     <div>
-      <div className="faq mt-20 w-full">
+      <div className="faq mt-20 w-[90%] mx-auto">
         <h1 className="font-semibold text-center text-3xl my-12">
           Frequently Asked Questions
         </h1>

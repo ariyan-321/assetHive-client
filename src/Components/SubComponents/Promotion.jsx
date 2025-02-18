@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Promotion() {
     return (
-      <section className="relative bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 text-white py-20 px-6 md:px-16 lg:px-24 flex flex-col lg:flex-row items-center justify-between gap-10">
+      <section className="relative w-[80%] rounded-xl mx-auto bg-gradient-to-r bg-blue-400 text-white py-20 px-6 md:px-16 lg:px-24 flex flex-col lg:flex-row items-center justify-between gap-10">
         {/* Left Content */}
         <div className="max-w-2xl text-center lg:text-left">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">

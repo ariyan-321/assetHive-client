@@ -36,7 +36,7 @@ export default function NewsLetter() {
   };
 
   return (
-    <div className="newsletter mt-24 bg-gradient-to-r  from-green-500 via-green-600 to-green-700  text-white py-12 w-[90%] rounded-xl mx-auto">
+    <div className="newsletter w-[80%] mx-auto mt-24 bg-gradient-to-r  bg-blue-400  text-white py-12  rounded-xl ">
       <h2 className="text-3xl text-center mb-6">Subscribe to our Newsletter</h2>
       <p className="text-center mb-8">
         Get the latest game reviews, updates, and more delivered to your inbox.
