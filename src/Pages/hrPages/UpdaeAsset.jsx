@@ -83,7 +83,7 @@ export default function UpdateAsset() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 md:flex-row md:justify-around 2xl:justify-between">
+    <div className="min-h-screen mx-auto container flex flex-col items-center justify-center px-4 py-8 md:flex-row md:justify-around 2xl:justify-between">
       {/* Form Section */}
       <div className="w-full max-w-lg p-8 rounded-xl shadow-lg">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">Update Asset</h1>

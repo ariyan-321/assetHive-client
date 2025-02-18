@@ -77,7 +77,7 @@ export default function AddAnAsset() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 md:flex-row md:justify-around 2xl:justify-between">
+    <div className="min-h-screen container mx-auto flex flex-col items-center justify-center px-4 py-8 md:flex-row md:justify-around 2xl:justify-between">
      <Helmet>
         <title>AssetHive | AddAnAsset</title>
       </Helmet>

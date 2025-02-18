@@ -40,7 +40,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen flex flex-col items-center py-10">
+    <div className=" min-h-screen flex flex-col items-center py-10">
    <Helmet>
         <title>AssetHive | Profile</title>
       </Helmet>

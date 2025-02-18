@@ -92,7 +92,7 @@ export default function MyEmployeeList() {
   }
 
   return (
-    <div className="p-6">
+    <div className="p-6 container mx-auto">
       <Helmet>
         <title>AssetHive | MyEmployeeList</title>
       </Helmet>

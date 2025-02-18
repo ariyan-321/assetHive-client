@@ -110,7 +110,7 @@ export default function AssetList() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 sm:p-8 transition-all duration-300">
+    <div className="min-h-screen container mx-auto  p-6 sm:p-8 transition-all duration-300">
       <Helmet>
         <title>AssetHive | AssetList</title>
       </Helmet>

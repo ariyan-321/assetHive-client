@@ -104,7 +104,7 @@ export default function AllRequests() {
   };
 
   return (
-    <div className="p-6 bg-gradient-to-r from-blue-100 via-white to-blue-100 min-h-screen">
+    <div className="p-6 container mx-auto  min-h-screen">
       <Helmet>
         <title>AssetHive | AllRequests</title>
       </Helmet>
@@ -237,7 +237,7 @@ export default function AllRequests() {
       )}
 
       {/* Pagination */}
-      <div className="flex justify-center items-center gap-4 mt-6">
+      <div className="flex justify-center  items-center gap-4 mt-6">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
