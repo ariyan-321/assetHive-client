@@ -16,6 +16,9 @@ import PieChart from "./hrComponents/PieChart";
 import HrEvents from "./hrComponents/hrEvents";
 import Calander from "./hrComponents/Calander";
 import { Helmet } from "react-helmet";
+import FaqPage from "./SubComponents/FaqPage";
+import Reviews from "./SubComponents/Reviews";
+import NewsLetter from "./SubComponents/NewsLetter";
 
 export default function Home() {
   const { user } = useContext(authContext);
@@ -49,6 +52,15 @@ export default function Home() {
 
           <div className="my-20">
             <Packages></Packages>
+          </div>
+          <div className="my-20">
+            <Reviews></Reviews>
+          </div>
+          <div className="my-20">
+            <FaqPage></FaqPage>
+          </div>
+          <div className="my-20">
+            <NewsLetter></NewsLetter>
           </div>
         </>
       )}
