@@ -47,7 +47,7 @@ export default function MyTeam() {
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="p-6 container mx-auto  min-h-screen">
       <Helmet>
         <title>AssetHive | MyTeam</title>
       </Helmet>
