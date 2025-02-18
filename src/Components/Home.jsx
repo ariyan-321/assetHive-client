@@ -56,6 +56,7 @@ export default function Home() {
           <div className="my-20">
             <Reviews></Reviews>
           </div>
+      
           <div className="my-20">
             <FaqPage></FaqPage>
           </div>
