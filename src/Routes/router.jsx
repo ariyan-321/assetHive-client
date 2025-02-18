@@ -18,6 +18,7 @@ import AllRequests from "../Pages/hrPages/AllRequests";
 import UpdaeAsset from "../Pages/hrPages/UpdaeAsset";
 import IncreaseLimit from "../Pages/hrPages/IncreaseLimit";
 import Payment from "../Pages/hrPages/Payment";
+import NotFound from "../Pages/NotFound";
 
 
 
@@ -25,6 +26,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainHome></MainHome>,
+    errorElement:<NotFound></NotFound>,
     children: [
       {
         path: "/",
