@@ -168,7 +168,7 @@ export default function AddAnEmployee() {
   }
 
   return (
-    <div className="container mx-auto my-8 px-4">
+    <div className="container  mx-auto my-8 px-4">
      <Helmet>
         <title>AssetHive | AddAnEmployee</title>
       </Helmet>
@@ -188,10 +188,10 @@ export default function AddAnEmployee() {
       <Link to={"/increase-limit"} className="btn bg-green-500">Increase Limit</Link>
      </div>
 
-      {/* Table Container */}
-      <div className="overflow-x-auto">
-        <table className="table table-zebra w-full mx-auto shadow-lg rounded-lg">
-          <thead className="bg-gray-200">
+      {/* Table Container */} 
+      <div className="overflow-x-auto bg-white text-black rounded-md">
+        <table className="table  w-full mx-auto shadow-lg rounded-lg">
+          <thead className="">
             <tr>
               <th className="p-4 text-sm font-medium text-center">Select</th>
               <th className="p-4 text-sm font-medium text-center">Image</th>
@@ -201,7 +201,7 @@ export default function AddAnEmployee() {
           </thead>
           <tbody>
             {filteredUsers?.map((user) => (
-              <tr key={user._id} className="hover:bg-gray-50">
+              <tr key={user._id} className="">
                 <td className="p-4 text-center">
                   <input
                     type="checkbox"

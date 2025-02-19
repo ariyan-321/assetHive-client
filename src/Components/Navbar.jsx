@@ -171,7 +171,7 @@ export default function Navbar() {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content  rounded-box z-[1] mt-4 w-52 p-2 shadow"
+              className="menu text-black bg-white menu-sm dropdown-content  rounded-box z-[1] mt-4 w-52 p-2 shadow"
             >
               <li>
                 <a>{user?.displayName}</a>
