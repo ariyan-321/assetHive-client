@@ -59,9 +59,6 @@ export default function Home() {
           </div>
       
           <div className="my-20">
-            <FaqPage></FaqPage>
-          </div>
-          <div className="my-20">
             <NewsLetter></NewsLetter>
           </div>
           <div className="my-20">
@@ -69,6 +66,9 @@ export default function Home() {
           </div>
           <div className="my-20">
             <Calander></Calander>
+          </div>
+          <div className="my-20">
+            <FaqPage></FaqPage>
           </div>
         </>
       )}
