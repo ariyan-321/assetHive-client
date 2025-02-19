@@ -149,7 +149,7 @@ export default function RequestForAnAsset() {
             setAvailabilityFilter(e.target.value);
             refetch();
           }}
-          className="p-2 border border-gray-300 rounded-lg shadow-sm w-full md:w-1/4"
+          className="p-2 border text-black border-gray-300 rounded-lg shadow-sm w-full md:w-1/4"
         >
           <option value="">All Availability</option>
           <option value="available">Available</option>
@@ -161,7 +161,7 @@ export default function RequestForAnAsset() {
             setTypeFilter(e.target.value);
             refetch();
           }}
-          className="p-2 border border-gray-300 rounded-lg shadow-sm w-full md:w-1/4"
+          className="p-2 border text-black border-gray-300 rounded-lg shadow-sm w-full md:w-1/4"
         >
           <option value="">All Types</option>
           <option value="Returnable">Returnable</option>
@@ -197,7 +197,7 @@ export default function RequestForAnAsset() {
                 paginatedAssets.map((asset, index) => (
                   <tr
                     key={asset._id}
-                    className="hover:bg-blue-50 transition-colors"
+                    className=" transition-colors"
                   >
                     <td className="border border-gray-300 px-6 py-4 text-center">
                       {index + 1}

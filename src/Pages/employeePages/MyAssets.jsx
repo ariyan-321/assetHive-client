@@ -216,7 +216,7 @@ export default function MyAssets() {
   };
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-lg container mx-auto mt-6">
+    <div className="p-6 bg-white text-black rounded-lg shadow-lg container mx-auto mt-6">
       <Helmet>
         <title>AssetHive | Home</title>
       </Helmet>

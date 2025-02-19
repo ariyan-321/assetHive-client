@@ -21,7 +21,7 @@ export default function MyPendingRequests() {
   });
 
   return (
-    <div className="p-6 bg-white text-black rounded-lg shadow-md container mx-auto mt-6">
+    <div className="p-6  rounded-lg shadow-md container mx-auto mt-6">
       <h1 className="text-3xl font-semibold text-center  mb-6">
         My Pending Requests
       </h1>
@@ -35,7 +35,7 @@ export default function MyPendingRequests() {
       )}
 
       {!isLoading && requests?.length === 0 && (
-        <p className="text-center text-lg text-gray-500">No pending requests found.</p>
+        <p className="text-center text-lg ">No pending requests found.</p>
       )}
 
       {!isLoading && requests?.length > 0 && (
@@ -43,7 +43,7 @@ export default function MyPendingRequests() {
           {requests.map((request) => (
             <li
               key={request._id}
-              className="p-4 border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 transition-all"
+              className="p-4 border border-gray-200 rounded-lg shadow-sm  transition-all"
             >
               <div className="flex items-center space-x-4">
                 {/* Asset Image */}
@@ -67,7 +67,7 @@ export default function MyPendingRequests() {
                       {request.status}
                     </span>
                   </div>
-                  <p className="text-gray-600 mt-2">Status: {request.status}</p>
+                  <p className=" mt-2">Status: {request.status}</p>
                 </div>
               </div>
             </li>

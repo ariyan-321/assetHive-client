@@ -31,7 +31,7 @@ export default function MyMonthlyRequests() {
   }
 
   return (
-    <div className="p-6 bg-white text-black rounded-lg shadow-lg container mx-auto mt-6">
+    <div className="p-6  rounded-lg shadow-lg container mx-auto mt-6">
       <h1 className="text-3xl font-semibold text-center  mb-6">My Monthly Requests</h1>
       
       {requests?.length > 0 ? (
@@ -48,7 +48,7 @@ export default function MyMonthlyRequests() {
             </thead>
             <tbody>
               {requests.map((request, index) => (
-                <tr key={request._id} className="hover:bg-gray-50 transition-all">
+                <tr key={request._id} className=" transition-all">
                   <td className="px-4 py-2 text-center">{index + 1}</td>
                   <td className="px-4 py-2">{request.asset.name}</td>
                   <td className="px-4 py-2">{new Date(request.requestDate).toLocaleDateString()}</td>
