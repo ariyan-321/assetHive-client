@@ -39,7 +39,7 @@ export default function PendingRequests() {
       <h1 className="text-3xl font-bold  text-center mb-6">Pending Requests</h1>
       
       {requests && requests.length > 0 ? (
-        <div className="bg-white rounded-lg shadow-md p-4">
+        <div className=" rounded-lg shadow-md p-4">
           <ul className="space-y-4">
             {requests.map((request) => (
               <li
