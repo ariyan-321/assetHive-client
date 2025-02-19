@@ -10,9 +10,9 @@ export default function Calander() {
 
   return (
     <div className="w-[85%] mx-auto p-6 sm:p-8 space-y-6">
-      <h1 className="text-4xl font-bold text-center text-gray-800 mb-6">Company Calendar</h1>
+      <h1 className="text-4xl font-bold text-center  mb-6">Company Calendar</h1>
 
-      <div className="bg-white rounded-lg shadow-lg p-6 flex justify-center items-center">
+      <div className=" rounded-lg shadow-lg p-6 flex justify-center items-center">
         <Calendar
           onChange={onChange}
           value={date}
@@ -21,7 +21,7 @@ export default function Calander() {
       </div>
 
       <div className="text-center mt-4">
-        <p className="text-xl text-gray-700">Selected Date: {date.toDateString()}</p>
+        <p className="text-xl ">Selected Date: {date.toDateString()}</p>
       </div>
     </div>
   );

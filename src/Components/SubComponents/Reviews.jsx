@@ -30,7 +30,7 @@ export default function Reviews() {
 
   return (
     <div className="w-[85%] mx-auto p-6">
-      <h2 className="text-4xl font-bold text-center mb-8 text-green-600">
+      <h2 className="text-4xl font-bold text-center mb-8 text-blue-400">
         Client Reviews
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -43,7 +43,7 @@ export default function Reviews() {
               <img
                 src={review.image}
                 alt={review.name}
-                className="rounded-full w-24 h-24 mb-4 border-2 border-green-600"
+                className="rounded-full w-24 h-24 mb-4 border-2 border-blue-600"
               />
               <h3 className="text-lg font-semibold">{review.name}</h3>
               <p className=" italic">"{review.review}"</p>

@@ -5,7 +5,7 @@ export default function Packages() {
     <div className="w-[90%] md:w-[80%] mx-auto my-12 p-8">
       <div className="text-center mb-10">
         <h1 className="text-4xl font-extrabold text-blue-600 mb-3">Our Packages</h1>
-        <p className="text-lg font-light text-gray-600">
+        <p className="text-lg font-light ">
           Choose the perfect plan for your business. We offer flexible pricing based on your team size.
         </p>
       </div>

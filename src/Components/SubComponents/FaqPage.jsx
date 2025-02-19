@@ -35,7 +35,7 @@ export default function FaqPage() {
                 {faq.question}
               </div>
               <div className="collapse-content">
-                <p className="text-gray-600">{faq.answer}</p>
+                <p className="">{faq.answer}</p>
               </div>
             </div>
           ))}
