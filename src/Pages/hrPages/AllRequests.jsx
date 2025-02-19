@@ -127,7 +127,7 @@ export default function AllRequests() {
           {currentRequests.map((request) => (
             <div
               key={request._id}
-              className="bg-white rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transform hover:scale-105 transition-transform duration-300"
+              className="bg-white rounded-lg shadow-lg  hover:shadow-xl transform hover:scale-105 transition-transform duration-300"
             >
               <img
                 src={request.asset.image}

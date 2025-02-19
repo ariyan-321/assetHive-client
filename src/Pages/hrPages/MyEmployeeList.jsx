@@ -92,12 +92,12 @@ export default function MyEmployeeList() {
   }
 
   return (
-    <div className="p-6 container mx-auto">
+    <div className="p-6 container mx-auto ">
       <Helmet>
         <title>AssetHive | MyEmployeeList</title>
       </Helmet>
-      <h1 className="text-3xl font-semibold mb-6 text-gray-800">My Employee List: ({employees?.length || 0})</h1>
-      <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
+      <h1 className="text-3xl font-semibold mb-6 ">My Employee List: ({employees?.length || 0})</h1>
+      <div className="overflow-x-auto text-black bg-white shadow-lg rounded-lg">
         <table className="table-auto w-full text-sm md:text-base border-collapse border border-gray-300">
           <thead className="bg-blue-100">
             <tr>
@@ -140,7 +140,7 @@ export default function MyEmployeeList() {
               ))
             ) : (
               <tr>
-                <td colSpan="7" className="text-center py-4 text-gray-600">
+                <td colSpan="7" className="text-center py-4 ">
                   No employees found.
                 </td>
               </tr>

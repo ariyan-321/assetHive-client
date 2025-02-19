@@ -83,7 +83,7 @@ export default function AddAnAsset() {
       </Helmet>
       {/* Form Section */}
       <div className="w-full max-w-lg p-8 rounded-xl shadow-lg">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">
+        <h1 className="text-2xl font-bold  mb-6">
           Add a New Asset
         </h1>
         <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
@@ -91,7 +91,7 @@ export default function AddAnAsset() {
           <div>
             <label
               htmlFor="productName"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium "
             >
               Product Name
             </label>
@@ -100,7 +100,7 @@ export default function AddAnAsset() {
               type="text"
               value={productName}
               onChange={(e) => setProductName(e.target.value)}
-              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full text-black px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               placeholder="Enter product name"
             />
           </div>
@@ -109,7 +109,7 @@ export default function AddAnAsset() {
           <div>
             <label
               htmlFor="productType"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium "
             >
               Product Type
             </label>
@@ -117,7 +117,7 @@ export default function AddAnAsset() {
               id="productType"
               value={productType}
               onChange={(e) => setProductType(e.target.value)}
-              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full text-black px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
             >
               <option value="">Select type</option>
               <option value="Returnable">Returnable</option>
@@ -129,7 +129,7 @@ export default function AddAnAsset() {
           <div>
             <label
               htmlFor="productQuantity"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium "
             >
               Product Quantity
             </label>
@@ -138,7 +138,7 @@ export default function AddAnAsset() {
               type="number"
               value={productQuantity}
               onChange={(e) => setProductQuantity(e.target.value)}
-              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full text-black px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               placeholder="Enter product quantity"
             />
           </div>
@@ -149,7 +149,7 @@ export default function AddAnAsset() {
           <div>
             <label
               htmlFor="productImage"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium "
             >
               Product Image
             </label>
@@ -158,7 +158,7 @@ export default function AddAnAsset() {
               type="file"
               accept="image/*"
               onChange={(e) => setProductImage(e.target.files[0])}
-              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full text-black px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </div>
 
