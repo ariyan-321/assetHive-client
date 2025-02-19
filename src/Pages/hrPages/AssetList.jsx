@@ -121,7 +121,7 @@ export default function AssetList() {
         <input
           type="text"
           placeholder="Search by Name"
-          className="p-3 border border-gray-300 rounded-md w-full md:w-1/3 transition-all duration-300 hover:border-blue-500 focus:ring-2 focus:ring-blue-500"
+          className="p-3 border text-black border-gray-300 rounded-md w-full md:w-1/3 transition-all duration-300 hover:border-blue-500 focus:ring-2 focus:ring-blue-500"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -130,7 +130,7 @@ export default function AssetList() {
       {/* Filter Section */}
       <div className="mb-6 flex flex-wrap gap-4 justify-center ">
         <select
-          className="p-3 border border-gray-300 rounded-md transition-all duration-300 hover:border-blue-500 focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
+          className="p-3 border text-black border-gray-300 rounded-md transition-all duration-300 hover:border-blue-500 focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
           onChange={(e) => setFilterStatus(e.target.value)}
           value={filterStatus}
         >
@@ -140,7 +140,7 @@ export default function AssetList() {
         </select>
 
         <select
-          className="p-3 border border-gray-300 rounded-md transition-all duration-300 hover:border-blue-500 focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
+          className="p-3 text-black border border-gray-300 rounded-md transition-all duration-300 hover:border-blue-500 focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
           onChange={(e) => setFilterType(e.target.value)}
           value={filterType}
         >
@@ -150,7 +150,7 @@ export default function AssetList() {
         </select>
 
         <select
-          className="p-3 border border-gray-300 rounded-md transition-all duration-300 hover:border-blue-500 focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
+          className="p-3 border text-black border-gray-300 rounded-md transition-all duration-300 hover:border-blue-500 focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
           onChange={(e) => setSortOrder(e.target.value)}
           value={sortOrder}
         >
