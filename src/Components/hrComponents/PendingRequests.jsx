@@ -44,7 +44,7 @@ export default function PendingRequests() {
             {requests.map((request) => (
               <li
                 key={request._id}
-                className="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-sm hover:bg-blue-50 transition duration-200"
+                className="flex justify-between items-center  p-4 rounded-lg shadow-sm  transition duration-200"
               >
                 <div className="flex flex-col space-y-2">
                   <strong className="text-lg text-blue-700">{request.asset.name}</strong>
