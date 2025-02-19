@@ -21,7 +21,7 @@ export default function MyPendingRequests() {
   });
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md container mx-auto mt-6">
+    <div className="p-6 bg-white text-black rounded-lg shadow-md container mx-auto mt-6">
       <h1 className="text-3xl font-semibold text-center  mb-6">
         My Pending Requests
       </h1>

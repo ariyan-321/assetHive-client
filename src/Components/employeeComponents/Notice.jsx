@@ -3,7 +3,7 @@ import React from 'react'
 export default function Notice() {
   return (
     <div className="max-w-7xl mx-auto p-6 sm:p-8 space-y-6">
-      <h1 className="text-4xl font-bold text-center text-gray-800">Employee Notices</h1>
+      <h1 className="text-4xl font-bold text-center">Employee Notices</h1>
 
       {/* Notice Card 1 */}
       <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between space-y-4 md:space-y-0 hover:shadow-xl transition">

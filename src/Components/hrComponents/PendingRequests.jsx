@@ -54,15 +54,15 @@ export default function PendingRequests() {
                       alt={request.asset.name}
                       className="w-20 h-20 object-cover rounded-md"
                     />
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm">
                       <p><strong>Type:</strong> {request.asset.type}</p>
                       <p><strong>Quantity:</strong> {request.asset.quantity}</p>
                     </div>
                   </div>
-                  <span className="text-gray-500 text-sm">{request.status}</span>
+                  <span className=" text-sm">{request.status}</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <span className="text-sm text-gray-400">{new Date(request.requestDate).toLocaleDateString()}</span>
+                  <span className="text-sm ">{new Date(request.requestDate).toLocaleDateString()}</span>
                 </div>
               </li>
             ))}

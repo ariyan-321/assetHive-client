@@ -31,7 +31,7 @@ export default function MyMonthlyRequests() {
   }
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-lg container mx-auto mt-6">
+    <div className="p-6 bg-white text-black rounded-lg shadow-lg container mx-auto mt-6">
       <h1 className="text-3xl font-semibold text-center  mb-6">My Monthly Requests</h1>
       
       {requests?.length > 0 ? (
